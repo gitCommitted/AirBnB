@@ -1,3 +1,4 @@
+
 table Users {
   id int [pk]
   firstName varchar
@@ -35,7 +36,13 @@ table Reviews {
 }
 
 table Bookings {
-  
+  id int [pk]
+  userId int
+  spotId int
+  startDate datetime
+  endDate datetime
+  createdAt datetime
+  updatedAt datetime
 }
 
 
@@ -44,3 +51,7 @@ Ref: "Users"."id" < "Spots"."ownerId"
 Ref: "Users"."id" < "Reviews"."userId"
 
 Ref: "Spots"."id" < "Reviews"."spotId"
+
+Ref: "Users"."id" < "Bookings"."id"
+
+Ref: "Spots"."id" < "Bookings"."spotId"
