@@ -1,0 +1,46 @@
+table Users {
+  id int [pk]
+  firstName varchar
+  lastName varchar [not null]
+  email varchar [not null]
+  createdAt datetime
+  updatedAt datetime
+}
+
+table Spots {
+  id int [pk]
+  ownerId int
+  address varchar
+  city varchar
+  state varchar
+  country varchar
+  lat decimal
+  lng decimal
+  name varchar
+  description varchar
+  price decimal
+  createdAt datetime
+  updatedAt datetime
+  previewImage varchar
+}
+
+table Reviews {
+  id int [pk]
+  userId int
+  spotId int
+  review varchar
+  stars int
+  createdAt datetime
+  updatedAt datetime
+}
+
+table Bookings {
+  
+}
+
+
+Ref: "Users"."id" < "Spots"."ownerId"
+
+Ref: "Users"."id" < "Reviews"."userId"
+
+Ref: "Spots"."id" < "Reviews"."spotId"
