@@ -49,8 +49,8 @@ Returns the information about the current user that is logged in.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: Get
+  * URL: /Users/:id
   * Body: none
 
 * Successful Response
