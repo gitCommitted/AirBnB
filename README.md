@@ -4,8 +4,6 @@
 
 `<insert database schema design here>`
 
-/Users/isaacd/appacademy-2021-Nov-E/4-Module/5-week/API-project/DBdiagram.png
-
 ## API Documentation
 
 ## All endpoints that require authentication
@@ -228,7 +226,7 @@ Returns all the spots.
     {
       "Spots":[
         {
-          "idid": 1,
+          "id": 1,
           "ownerId": 1,
           "address": "123 Disney Lane",
           "city": "San Francisco",
