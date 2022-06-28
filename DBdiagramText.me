@@ -45,6 +45,7 @@ table Bookings {
   updatedAt datetime
 }
 
+
 Ref: "Users"."id" < "Spots"."ownerId"
 
 Ref: "Users"."id" < "Reviews"."userId"
