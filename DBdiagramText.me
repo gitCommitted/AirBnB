@@ -45,6 +45,20 @@ table Bookings {
   updatedAt datetime
 }
 
+table spotImages {
+  id int [pk]
+  spotId int
+  imagePath varchar
+  createdAt datetime
+  updatedAt datetime
+}
+table reviewImages {
+  id int [pk]
+  reviewId int
+  imagePath varchar
+  createdAt datetime
+  updatedAt datetime
+}
 
 Ref: "Users"."id" < "Spots"."ownerId"
 
@@ -52,6 +66,10 @@ Ref: "Users"."id" < "Reviews"."userId"
 
 Ref: "Spots"."id" < "Reviews"."spotId"
 
-Ref: "Users"."id" < "Bookings"."id"
-
 Ref: "Spots"."id" < "Bookings"."spotId"
+
+Ref: "Users"."id" < "Bookings"."userId"
+
+Ref: "Spots"."id" < "spotImages"."spotId"
+
+Ref: "Reviews"."id" < "reviewImages"."reviewId"
