@@ -1,5 +1,15 @@
 const express = require('express');
 const app = express();
+
+const booksRouter = require('./routes/Bookings');
+app.use('/Bookings', booksRouter);
+const reviewsRouter = require('./routes/Reviews');
+app.use('/Reviews', reviewsRouter);
+const spotsRouter = require('./routes/Spots');
+app.use('/Spots', spotsRouter);
+const usersRouter = require('./routes/users');
+app.use('/Users', usersRouter);
+
 app.use(express.json())
 app.get('/', function(req, res){
    //Create an error and pass it to the next function

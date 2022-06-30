@@ -1189,7 +1189,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: Put
-  * URL: /Review/:id
+  * URL: /Review/:id/Images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1251,7 +1251,7 @@ Delete an existing image.
   the image's imageableId and imageableType
 * Request
   * Method: Delete
-  * URL: ?
+  * URL: /Images/:id
   * Body: none
 
 * Successful Response
@@ -1286,8 +1286,8 @@ Return spots filtered by query parameters.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: Get
+  * URL: /Spots
   * Query Parameters
     * page: integer, minimum: 0, maximum: 10, default: 0
     * size: integer, minimum: 0, maximum: 20, default: 20

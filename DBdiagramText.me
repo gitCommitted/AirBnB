@@ -45,16 +45,10 @@ table Bookings {
   updatedAt datetime
 }
 
-table spotImages {
+table Images {
   id int [pk]
-  spotId int
-  imagePath varchar
-  createdAt datetime
-  updatedAt datetime
-}
-table reviewImages {
-  id int [pk]
-  reviewId int
+  type varchar
+  spotOrReviewId int
   imagePath varchar
   createdAt datetime
   updatedAt datetime
@@ -70,6 +64,6 @@ Ref: "Spots"."id" < "Bookings"."spotId"
 
 Ref: "Users"."id" < "Bookings"."userId"
 
-Ref: "Spots"."id" < "spotImages"."spotId"
+Ref: "Spots"."id" < "Images"."spotOrReviewId"
 
-Ref: "Reviews"."id" < "reviewImages"."reviewId"
+Ref: "Reviews"."id" < "Images"."spotOrReviewId"
