@@ -39,8 +39,6 @@ router.delete(
     }
   );
 
-
-
   // Restore session user
 router.get(
     '/',
@@ -56,5 +54,5 @@ router.get(
   );
 
 
-  
+
 module.exports = router;
