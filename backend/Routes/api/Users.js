@@ -1,4 +1,6 @@
 
-routes.get('/:id',(req,res,next)=>{
-    
-})
+// backend/routes/api/users.js
+const express = require('express')
+const router = express.Router();
+
+module.exports = router;
