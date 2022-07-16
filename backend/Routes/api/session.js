@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Log in
 router.post(
-    '/',
+    '/login',
     async (req, res, next) => {
       const { credential, password } = req.body;
   
