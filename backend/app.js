@@ -49,6 +49,7 @@ if (!isProduction) {
 
 app.use(express.json())
 
+//connect all routes
 const routes = require('./routes');
 app.use(routes);
 
