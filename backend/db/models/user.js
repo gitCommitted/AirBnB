@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
-            username: credential,
+           lastName: credential,
             email: credential
           }
         }
@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     static async signup({ username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
-        username,
+        firstName,
+        lastName,
         email,
         hashedPassword
       });
@@ -49,18 +50,7 @@ module.exports = (sequelize, DataTypes) => {
   
   User.init(
     {
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: [4, 30],
-          isNotEmail(value) {
-            if (Validator.isEmail(value)) {
-              throw new Error("Cannot be an email.");
-            }
-          }
-        }
-      },
+      
       email: {
         type: DataTypes.STRING,
         allowNull: false,
