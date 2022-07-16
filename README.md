@@ -50,7 +50,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: Get
-  * URL: '/Users/:id'
+  * URL: '/me'
   * Body: none
 
 * Successful Response
@@ -76,7 +76,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: Get
-  * URL: '/Users/:id'
+  * URL: '/login'
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -142,7 +142,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: Post
-  * URL: /Users
+  * URL: /signup
   * Headers:
     * Content-Type: application/json
   * Body:
