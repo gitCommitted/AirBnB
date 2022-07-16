@@ -39,7 +39,7 @@ router.delete(
     }
   );
 
-  // Restore session user
+  // Restore session user endpoint
 router.get(
     '/',
     restoreUser,
@@ -52,7 +52,20 @@ router.get(
       } else return res.json({});
     }
   );
+// Sign up: /signup
+router.post(
+  '/signup',
+  async (req, res) => {
+    const { firstName, lastName, email, password } = req.body;
+    const user = await User.signup({ firstName, lastName, email, password });
 
+    await setTokenCookie(res, user);
+
+    return res.json({
+      user
+    });
+  }
+);
 
 
 module.exports = router;
