@@ -5,6 +5,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const routes = require('./routes');
 
 
 const { environment } = require('./config');
@@ -50,7 +51,7 @@ if (!isProduction) {
 app.use(express.json())
 
 //connect all routes
-const routes = require('./routes');
+
 app.use(routes);
 
 // app.get('/', function(req, res){
