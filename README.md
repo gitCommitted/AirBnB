@@ -213,7 +213,7 @@ Returns all the spots.
 * Require Authentication: false
 * Request
   * Method: Get
-  * URL: /Spots
+  * URL: /spots
   * Body: none
 
 * Successful Response
@@ -252,7 +252,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: Get
-  * URL: /Spots/:userId
+  * URL: /me/spots
   * Body: none
 
 * Successful Response
@@ -291,7 +291,7 @@ Returns the details of a spot specified by its id.
 * Require Authentication: false
 * Request
   * Method: Get
-  * URL: /Spots/:id
+  * URL: /spots/:spotId
   * Body: none
 
 * Successful Response
@@ -348,7 +348,7 @@ Creates and returns a new spot.
 * Require Authentication: true
 * Request
   * Method: Post
-  * URL: /Spots
+  * URL: /spots
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -423,7 +423,7 @@ Updates and returns an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: Put
-  * URL: /Spot/:id
+  * URL: /spot/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -511,7 +511,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: Delete
-  * URL: /Spots/:id
+  * URL: /spots/:spotId
   * Body: none
 
 * Successful Response
@@ -547,7 +547,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: Get
-  * URL: /Reviews/userId
+  * URL: /me/reviews
   * Body: none
 
 * Successful Response
@@ -599,7 +599,7 @@ Returns all the reviews that belong to a spot specified by id.
 * Require Authentication: false
 * Request
   * Method: Get
-  * URL: /Reviews/spotId
+  * URL: /spots/:spotId/reviews
   * Body: none
 
 * Successful Response
