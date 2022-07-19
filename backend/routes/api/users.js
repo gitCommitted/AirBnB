@@ -25,6 +25,18 @@ router.get(
       return res.json(trees);
     }
 );
+router.get(
+  '/allusers',
 
+  
+  async (req, res) => {
+    
+    trees = await User.findAll({
+      
+      attributes: ['id', 'firstName', 'lastName', 'email']
+  });
+    return res.json(trees);
+  }
+);
 
 module.exports = router;
