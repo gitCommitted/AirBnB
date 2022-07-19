@@ -1,5 +1,5 @@
 const express = require('express');
-//require('express-async-errors');
+require('express-async-errors');
 const morgan = require('morgan');
 const cors = require('cors');
 const csurf = require('csurf');
@@ -39,11 +39,8 @@ if (!isProduction) {
    })
  );
 
-
-
 //connect all routes
 app.use(routes);
-
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
@@ -59,7 +56,6 @@ app.use((_req, _res, next) => {
  // Process sequelize errors
  app.use((err, _req, _res, next) => {
    // check if error is a Sequelize error:
-   console.log(err)
    if (err instanceof ValidationError) {
      err.errors = err.errors.map((e) => e.message);
      err.title = 'Validation error';

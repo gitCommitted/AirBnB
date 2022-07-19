@@ -16,7 +16,6 @@ router.get(
     
     async (req, res) => {
       const { user } = req;
-      console.log(req)
       trees = await User.findOne({
         where: {
           id: user.id
