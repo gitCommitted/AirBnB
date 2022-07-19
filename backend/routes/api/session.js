@@ -18,10 +18,10 @@ router.post(
         const err = new Error('Validation Failed');
         err.status = 400;
         err.title = 'Validation Failed';
-        err.errors = [{
+        err.errors = {
           "email": "Email is required",
           "password": "Password is required"
-        }];
+        };
         return next(err);
       }
 
@@ -36,10 +36,15 @@ router.post(
       }
       
   
-      await setTokenCookie(res, user);
+      const token=await setTokenCookie(res, user);
+      //console.log(token)
   
-      return res.json({
-        user
+      return res.json( {
+        "id": user.id,
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "email": user.email,
+        "token": token
       });
     }
   );
