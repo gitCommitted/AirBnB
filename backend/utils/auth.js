@@ -78,7 +78,7 @@ const isOwner = [
     console.log('spot: ',spot)
     const owner = await Spot.findOne({
       where: {
-        spot: spot.id
+        id: spot
       }
     })
     console.log('owner: ',owner)
