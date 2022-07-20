@@ -73,7 +73,7 @@ const requireAuth = [
 // ...
 const isOwner = [
   restoreUser,
-  function (req, _res, next) {
+  async (req, _res, next) => {
     const spot = req.params.spotId
     console.log('spot: ',spot)
     const owner = await Spot.findOne({
