@@ -14,6 +14,18 @@ module.exports = (sequelize, DataTypes) => {
         models.User,
         {foreignKey: 'ownerId'}
       )
+      Spot.hasMany(
+        models.Review,
+        {foreignKey: 'spotId'}
+      )
+      Spot.hasMany(
+        models.Booking,
+        {foreignKey: 'spotId'}
+      )
+      Spot.hasMany(
+        models.Image,
+        {foreignKey: 'spotOrReviewId'}
+      )
     }
   }
   Spot.init({
