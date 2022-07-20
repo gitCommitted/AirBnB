@@ -71,5 +71,27 @@ const requireAuth = [
   ];
   // backend/utils/auth.js
 // ...
+const isOwner = [
+  restoreUser,
+  function (req, _res, next) {
+    const spot = req.params.spotId
+    console.log('spot: ',spot)
+    const owner = await Spot.findOne({
+      where: {
+        spot: spot.id
+      }
+    })
+    console.log('owner: ',owner)
+    console.log('req.user.id: ',req.user.id)
+    if (req.user.id===owner.id) 
+    return next();
+
+    const err = new Error('Not Owner');
+    err.title = 'Not Owner';
+    err.errors = ['Not Owner'];
+    err.status = 401;
+    return next(err);
+  }
+];
 
 module.exports = { setTokenCookie, restoreUser, requireAuth };
