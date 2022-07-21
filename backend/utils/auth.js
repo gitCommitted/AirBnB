@@ -89,7 +89,7 @@ const isOwner = [
     const err = new Error('Not Owner');
     err.title = 'Not Owner';
     err.errors = ['Not Owner'];
-    err.status = 401;
+    err.status = 403;
     return next(err);
   }
 ];
