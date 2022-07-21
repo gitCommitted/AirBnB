@@ -18,10 +18,9 @@ router.post(
         const err = new Error('Validation Failed');
         err.status = 400;
         err.title = 'Validation Failed';
-        err.errors = {
-          "email": "Email is required",
-          "password": "Password is required"
-        };
+        err.errors = {};
+        if (!email){err.errors.email= "Email Required"}
+        if (!password){err.errors.password="Password Required"}
         return next(err);
       }
 
@@ -80,11 +79,10 @@ router.post(
       const err = new Error('Validation Failed');
       err.status = 400;
       err.title = 'Validation Failed';
-      err.errors = {
-        "email": "Invalid email",
-        "firstName": "First Name is required",
-        "lastName": "Last Name is required"
-      };
+      err.errors = {};
+      if (!email){err.errors.email= "Invalid email"}
+      if (!firstName){err.errors.firstName="First Name Required"}
+      if (!lastName){err.errors.lastName="last Name Required"}
       return next(err);
     }
     

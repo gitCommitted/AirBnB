@@ -73,7 +73,7 @@ const requireAuth = [
 // ...
 const isOwner = [
   restoreUser,
-  async (req, _res, next) => {
+   async (req, _res, next) => {
     const spot = req.params.spotId
     console.log('spot: ',spot)
     const owner = await Spot.findOne({
@@ -83,7 +83,7 @@ const isOwner = [
     })
     console.log('owner: ',owner)
     console.log('req.user.id: ',req.user.id)
-    if (req.user.id===owner.id) 
+    if (req.user.id===owner.ownerId) 
     return next();
 
     const err = new Error('Not Owner');

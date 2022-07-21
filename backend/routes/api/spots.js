@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, requireAuth, restoreUser, isOwner } = require('../../utils/auth');
 const { User,Spot } = require('../../db/models');
 
 const router = express.Router();
@@ -10,10 +10,9 @@ router.get(
     '/',
     async (req, res) => {
       
-     const Spots = await Spot.findAll({
-        
-    });
-      return res.json({Spots});
+    const Spots = await Spot.findAll({});
+
+    return res.json({Spots});
     }
   );
 
