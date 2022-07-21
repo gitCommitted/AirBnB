@@ -80,7 +80,8 @@ router.post(
       err.status = 400;
       err.title = 'Validation Failed';
       err.errors = {};
-      if (!email || !validator.isEmail(email)){err.errors.email= "Invalid email"}
+      if (!email) {err.errors.email= "Email Required"}
+      if (email && !validator.isEmail(email)){err.errors.email= "Invalid email"}
       if (!firstName){err.errors.firstName="First Name Required"}
       if (!lastName){err.errors.lastName="last Name Required"}
       return next(err);
