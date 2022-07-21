@@ -1,6 +1,6 @@
 // backend/routes/api/session.js
 const express = require('express')
-
+const validator = require('validator');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
@@ -80,7 +80,7 @@ router.post(
       err.status = 400;
       err.title = 'Validation Failed';
       err.errors = {};
-      if (!email){err.errors.email= "Invalid email"}
+      if (!email || !validator.isEmail(email)){err.errors.email= "Invalid email"}
       if (!firstName){err.errors.firstName="First Name Required"}
       if (!lastName){err.errors.lastName="last Name Required"}
       return next(err);
