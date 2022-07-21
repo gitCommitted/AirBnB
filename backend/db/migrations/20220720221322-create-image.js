@@ -8,13 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      type: {
+      imageableType: {
         type: Sequelize.STRING
       },
-      spotOrReviewId: {
+      imageableId: {
         type: Sequelize.INTEGER
       },
-      imagePath: {
+      url: {
         type: Sequelize.STRING
       },
       createdAt: {

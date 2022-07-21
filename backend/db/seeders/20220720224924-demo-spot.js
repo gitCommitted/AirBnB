@@ -11,11 +11,11 @@ module.exports = {
         state: 'Florida',
         country: 'US',
         lat: '85',
-        lon: '54',
+        lng: '54',
         name: 'Testspot1',
         description: 'A great place to stay and test',
         price: '89.50',
-        previewImage: 'true'
+       url: 'image url'
       },
       {
         ownerId: '1',
@@ -24,11 +24,11 @@ module.exports = {
         state: 'Florida',
         country: 'US',
         lat: '88',
-        lon: '41',
+        lng: '41',
         name: 'Testspot2',
         description: 'A great place to stay and test',
         price: '99.50',
-        previewImage: 'true'
+       url: 'image url'
       },
       {
         ownerId: '2',
@@ -37,11 +37,11 @@ module.exports = {
         state: 'Florida',
         country: 'US',
         lat: '105',
-        lon: '106',
+        lng: '106',
         name: 'Testspot3',
         description: 'A great place to stay and test',
         price: '199.50',
-        previewImage: 'false'
+       url: 'image url'
       }
     ], {});
   },

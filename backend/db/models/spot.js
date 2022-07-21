@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       )
       Spot.hasMany(
         models.Image,
-        {foreignKey: 'spotOrReviewId'}
+        {foreignKey: 'imageableId'}
       )
     }
   }
@@ -35,11 +35,11 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.STRING,
     country: DataTypes.STRING,
     lat: DataTypes.DECIMAL,
-    lon: DataTypes.DECIMAL,
+    lng: DataTypes.DECIMAL,
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.FLOAT,
-    previewImage: DataTypes.BOOLEAN
+    url: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Spot',

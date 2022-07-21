@@ -4,19 +4,19 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Images', [
       {
-        type: 'spot',
-        spotOrReviewId: '1',
-        imagePath: 'home/desktop'
+        imageableType: 'spot',
+        imageableId: '1',
+        url: 'home/desktop'
       },
       {
-        type: 'spot',
-        spotOrReviewId: '2',
-        imagePath: 'home/desktop'
+        imageableType: 'spot',
+        imageableId: '2',
+        url: 'home/desktop'
       },
       {
-        type: 'review',
-        spotOrReviewId: '3',
-        imagePath: 'home/desktop'
+        imageableType: 'review',
+        imageableId: '3',
+        url: 'home/desktop'
       },
     ], {});
   },

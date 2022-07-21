@@ -26,7 +26,7 @@ module.exports = {
       lat: {
         type: Sequelize.DECIMAL
       },
-      lon: {
+      lng: {
         type: Sequelize.DECIMAL
       },
       name: {
@@ -38,8 +38,8 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT
       },
-      previewImage: {
-        type: Sequelize.BOOLEAN
+      url: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
