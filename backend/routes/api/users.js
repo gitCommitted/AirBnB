@@ -3,7 +3,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Spot } = require('../../db/models');
 
 const router = express.Router();
 
@@ -38,5 +38,42 @@ router.get(
     return res.json(trees);
   }
 );
+
+//get all spots owned by current user
+router.get(
+  '/spots',
+  requireAuth,
+  
+  async (req, res) => {
+    console.log(req.user.id)
+    
+  const  Spots = await Spot.findAll({
+      
+    where: {
+          ownerId: req.user.id
+        },
+        attributes: [
+        "id",
+        "ownerId",
+        "address",
+        "city",
+        "state",
+        "country",
+        "lat",
+        "lng",
+        "name",
+        "description",
+        "price",
+        "createdAt",
+        "updatedAt",
+        "url"]
+      
+  });
+    return res.json({Spots});
+  }
+);
+
+
+
 
 module.exports = router;
