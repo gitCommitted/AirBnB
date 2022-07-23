@@ -66,7 +66,7 @@ router.get(
         "price",
         "createdAt",
         "updatedAt",
-        "url"]
+        "previewImage"]
       
   });
     return res.json({Spots});
