@@ -21,13 +21,18 @@ router.get(
 //get details of spot by id
 router.get(
   '/:spotId',
-  async (req, res) => {
+  async (req, res, next) => {
   const {spotId} = req.params 
   const Spots = await Spot.findOne({
       where: {
         id: spotId
       }
   });
+  if (!Spots){
+    const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+  }
   const revs=await Review.count(
     {where: 
       {spotId: Spots.id}
@@ -92,6 +97,10 @@ const validateSpot = [
   check('lng')
      .isFloat({ min: -180, max: 180 })
      .withMessage('Longitude is not valid'),
+  check('name')
+    .exists({ checkFalsy: true })
+    .isLength({max: 50})
+    .withMessage('Name must be less than 50 characters'),
   check('description')
     .exists({ checkFalsy: true })
     .withMessage('Description is required'),
@@ -121,8 +130,99 @@ ownerId, address, city, state, country, lat, lng, name, description, price });
   }
 );
 
+//edit a spot
+router.put(
+  '/:spotId',
+  requireAuth,
+  validateSpot,
+  isOwner,
+  async (req, res, next) => {
+  const ownerId = req.user.id
+  const {spotId} = req.params
+  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const newSpot = await Spot.findByPk(spotId);
 
+  newSpot.address=address
+  newSpot.city=city
+  newSpot.state=state
+  newSpot.country=country
+  newSpot.lat=lat
+  newSpot.lng=lng
+  newSpot.name=name
+  newSpot.description=description
+  newSpot.price=price
 
+  await newSpot.save()
+  const retObj = await Spot.findOne({
+   where: {
+     id: newSpot.id
+   },
+   attributes: {exclude: ['previewImage']}
+ })
+ return res.json(retObj);
+}
+);
+
+//delete a spot
+router.delete(
+  '/:spotId',
+  requireAuth,
+  validateSpot,
+  isOwner,
+  async (req, res, next) => {
+  const ownerId = req.user.id
+  const {spotId} = req.params
+  const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  const newSpot = await Spot.findByPk(spotId);
+  await newSpot.destroy()
+  return res.json({
+    "message": "Successfully deleted",
+    "statusCode": 200
+  });
+}
+);
+
+//get all reveiws by spotId
+
+router.get(
+  '/:spotId/reviews',
+  async (req, res, next) => {
+  const {spotId} = req.params 
+  const Spots = await Spot.findOne({
+      where: {
+        id: spotId
+      },
+      attributes: {},
+      include: {
+        model: Review
+      }
+  });
+  if (!Spots){
+    const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+  }
+  const Reviews = await Review.findAll({
+    where: {
+      spotId: Spots.id
+    },
+    include: [{
+      model: User,
+      attributes:['id','firstName','lastName']
+    },
+   {
+      model: Image,
+      attributes:['id','imageableId','url']
+    }]
+
+  })
+
+    return res.json({
+      Reviews
+      //Images
+    });
+    }
+  );
 
 
 module.exports = router;

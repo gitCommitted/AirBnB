@@ -81,14 +81,19 @@ const isOwner = [
         id: spot
       }
     })
+    if (!owner){
+      const err = new Error("Spot couldn't be found");
+          err.status = 404;
+          return next(err);
+    }
     console.log('owner: ',owner)
     console.log('req.user.id: ',req.user.id)
     if (req.user.id===owner.ownerId) 
     return next();
 
-    const err = new Error('Not Owner');
-    err.title = 'Not Owner';
-    err.errors = ['Not Owner'];
+    const err = new Error('Forbidden');
+  
+  
     err.status = 403;
     return next(err);
   }
