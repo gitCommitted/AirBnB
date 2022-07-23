@@ -26,23 +26,6 @@ router.get(
       where: {
         id: spotId
       }
-      // ,
-      // include: [
-      //   {
-      //   model:Review,
-      //   attributes: 
-      //       [[sequelize.fn('COUNT', sequelize.col('stars')),'numsReviews']]
-        
-      //   },
-      //   {
-      //   model: Image,
-      //   attributes: ['id','imageableId','url']
-      //   },
-      //   {
-      //     model: User, as: 'Owner',
-      //     attributes: ['id','firstName','lastName']
-      //   },
-      // ]
   });
   const revs=await Review.count(
     {where: 
@@ -56,17 +39,31 @@ router.get(
     where: {
       imageableType: 'spot',
       imageableId: Spots.id
-    }
+    },
+    attributes: ['id','imageableId','url']
   })
    const Owner =await User.findOne({
      where: {
       id: Spots.ownerId
-     }
+     },
+     attributes: ['id','firstName','lastName']
    })
   return res.json({
-    "id": Spots.id,
-    "numReviews": revs,
-    "aveStarRating": ave/revs,
+  "id": Spots.id,
+  "ownerId": Spots.ownerId,
+  "address": Spots.address,
+  "city": Spots.city,
+  "state": Spots.state,
+  "country": Spots.country,
+  "lat": Spots.lat,
+  "lng": Spots.lng,
+  "name": Spots.name,
+  "description": Spots.description,
+  "price": Spots.price,
+  "createdAt": Spots.createdAt,
+  "updatedAt": Spots.updatedAt,
+  "numReviews": revs,
+  "aveStarRating": ave/revs,
    Images,
    Owner
   });

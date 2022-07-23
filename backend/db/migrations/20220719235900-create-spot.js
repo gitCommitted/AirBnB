@@ -38,9 +38,7 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT
       },
-      url: {
-        type: Sequelize.STRING
-      },
+     
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -50,6 +48,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      previewImage: {
+        type: Sequelize.STRING
       }
     });
   },

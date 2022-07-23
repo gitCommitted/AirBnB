@@ -15,7 +15,7 @@ module.exports = {
         name: 'Testspot1',
         description: 'A great place to stay and test',
         price: '89.50',
-       url: 'image url'
+       previewImage: 'image url'
       },
       {
         ownerId: '1',
@@ -28,7 +28,7 @@ module.exports = {
         name: 'Testspot2',
         description: 'A great place to stay and test',
         price: '99.50',
-       url: 'image url'
+       previewImage: 'image url'
       },
       {
         ownerId: '2',
@@ -41,7 +41,7 @@ module.exports = {
         name: 'Testspot3',
         description: 'A great place to stay and test',
         price: '199.50',
-       url: 'image url'
+       previewImage: 'image url'
       }
     ], {});
   },
