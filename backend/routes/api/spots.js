@@ -126,6 +126,7 @@ ownerId, address, city, state, country, lat, lng, name, description, price });
    },
    attributes: {exclude: ['previewImage']}
  })
+    res.statusCode=201
     return res.json(retObj);
   }
 );
@@ -224,5 +225,70 @@ router.get(
     }
   );
 
+//create reveiw by spotId
+//part 1 validateReview
+
+const validateReview = [
+  
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('Review text is required'),
+  check('stars')
+    .exists({ checkFalsy: true })
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+];
+
+//part 2 create new review route handler
+
+router.post(
+  '/:spotId/reviews',
+  requireAuth,
+  validateReview,
+  async (req, res, next) => {
+  const {spotId} = req.params 
+  const userId = req.user.id
+  console.log('userId: ',userId)
+  const {review,stars}=req.body
+  const Spots = await Spot.findOne({
+      where: {
+        id: spotId
+      },
+      attributes: {},
+      include: {
+        model: Review
+      }
+  });
+  if (!Spots){
+    const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+  }
+  const userReviews = await Review.findOne({
+    where: {
+      userId: req.user.id,
+      spotId: req.params.spotId
+    }
+  })
+  if (userReviews){
+    const err = new Error("User already has a review for this spot");
+        err.status = 403;
+        return next(err);
+  }
+  const newReview = await Review.create({
+              spotId,
+              userId,
+              review,
+              stars
+            });
+  const newRev = await Review.findByPk(newReview.id);
+  res.statusCode=201
+  return res.json(
+    newRev
+  );
+})
+
+ 
 
 module.exports = router;
