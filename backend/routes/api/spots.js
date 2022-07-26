@@ -168,7 +168,7 @@ router.put(
 router.delete(
   '/:spotId',
   requireAuth,
-  validateSpot,
+  
   isOwner,
   async (req, res, next) => {
   const ownerId = req.user.id

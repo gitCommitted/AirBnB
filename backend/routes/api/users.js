@@ -3,7 +3,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
-const { User, Spot, Image, Review } = require('../../db/models');
+const { User, Spot, Image, Review, Booking } = require('../../db/models');
 
 const router = express.Router();
 
@@ -104,6 +104,32 @@ router.get(
     return res.json({Reviews});
   }
 );
+
+//get bookings by user
+router.get(
+  '/bookings',
+  requireAuth,
+  
+  async (req, res) => {
+    console.log(req.user.id)
+    
+    const Bookings = await Booking.findAll({
+      where: {
+        userId: req.user.id
+      },
+      include: 
+      {
+        model: Spot,
+        attributes: {exclude: ['description','createdAt','updatedAt']}
+      }
+     
+  
+    })
+   
+    return res.json({Bookings});
+  }
+);
+
 
 
 module.exports = router;
