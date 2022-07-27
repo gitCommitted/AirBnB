@@ -3,19 +3,117 @@ const { Op } = require("sequelize");
 const sequelize = require('sequelize')
 const { setTokenCookie, requireAuth, restoreUser, isOwner, isntOwner } = require('../../utils/auth');
 const { User,Spot,Image,Review,Booking } = require('../../db/models');
-const { check, checkSchema } = require('express-validator');
+const { check, checkSchema, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+const validateQuery = [
+  check('page')
+    .optional()
+    .isInt({ min: 0, max: 10 })
+    .withMessage('Page must be greater than or eaqual to zero'),
+  check('size')
+    .optional()
+    .isInt({ min: 0, max: 20 })
+    .withMessage('Size must be greater than or eaqual to zero'),
+  check('maxLat')
+    .optional()
+     .isFloat({ min: -90, max: 90 })
+     .withMessage('Maximum latitude is not valid'),
+  check('minLat')
+    .optional()
+     .isFloat({ min: -90, max: 90 })
+     .withMessage('Minimum latitude is not valid'),
+  check('minLng')
+    .optional()
+      .isFloat({ min: -180, max: 180 })
+      .withMessage('Minimum longitude is not valid'),
+  check('maxLng')
+    .optional()
+    .isFloat({ min: -180, max: 180 })
+    .withMessage('Maximum longitude is not valid'),
+  check('minPrice')
+    .optional()
+     .isFloat({ min: 0})
+     .withMessage('Minimum price must be greater than or equal to 0'),
+  check('maxPrice')
+     .optional()
+     .isFloat({ min: 0})
+     .withMessage('Maximum price must be greater than or equal to 0'),
+handleValidationErrors]
+
+
 //get all spots
 router.get(
     '/',
-    async (req, res) => {
-      
-    const Spots = await Spot.findAll({});
 
-    return res.json({Spots});
+    validateQuery,
+    async (req, res, next) => {
+      const query={
+        where: {}
+      }
+      //let { page, size } = req.query;
+      let page = parseInt(req.query.page, 10) 
+      let size = parseInt(req.query.size, 10) 
+      if(Number.isNaN(page)){page=0}
+      if(Number.isNaN(size)){size=20}      
+      query.limit = size;
+      query.offset = size * (page-1);
+
+    if (req.query.minLat){
+      query.where.Lat={
+        [Op.gt]: req.query.minLat
+      }
+    }
+    if (req.query.maxLat){
+      query.where.Lat={
+        [Op.lt]: req.query.maxLat
+      }
+    }
+    if (req.query.minLat&&req.query.maxLat){
+      query.where.Lat={
+        [Op.lt]: req.query.maxLat,
+        [Op.gt]: req.query.minLat
+      }
+    }
+    if (req.query.minLng){
+      query.where.Lng={
+        [Op.gt]: req.query.minLng
+      }
+    }
+    if (req.query.maxLng){
+      query.where.Lng={
+        [Op.lt]: req.query.maxLng
+      }
+    }
+    if (req.query.minLng&&req.query.maxLng){
+      query.where.Lng={
+        [Op.lt]: req.query.maxLng,
+        [Op.gt]: req.query.minLng
+      }
+    }
+    if (req.query.minPrice){
+      query.where.price={
+        [Op.gt]: req.query.minPrice
+      }
+    }
+    if (req.query.maxPrice){
+      query.where.price={
+        [Op.lt]: req.query.maxPrice
+      }
+    }
+    if (req.query.minPrice&&req.query.maxPrice){
+      query.where.Price={
+        [Op.lt]: req.query.maxPrice,
+        [Op.gt]: req.query.minPrice
+      }
+    }
+    
+    console.log(query)
+    const Spots = await Spot.findAll(query);
+
+    return res.json({Spots,page,size});
     }
   );
 
