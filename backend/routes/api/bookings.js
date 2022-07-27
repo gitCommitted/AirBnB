@@ -204,7 +204,7 @@ const router = express.Router();
         return next(err);
     }
 
-    await userReview.destroy()
+    await book.destroy()
     return res.json({
       "message": "Successfully deleted",
       "statusCode": 200
