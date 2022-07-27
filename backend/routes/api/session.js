@@ -17,7 +17,7 @@ router.post(
       if (!email || !password){
         const err = new Error('Validation Failed');
         err.status = 400;
-        err.title = 'Validation Failed';
+      
         err.errors = {};
         if (!email){err.errors.email= "Email Required"}
         if (!password){err.errors.password="Password Required"}
@@ -76,7 +76,6 @@ router.post(
     if (!email || !firstName || !lastName){
       const err = new Error('Validation Failed');
       err.status = 400;
-      err.title = 'Validation Failed';
       err.errors = {};
       if (!email) {err.errors.email= "Email Required"}
       if (email && !validator.isEmail(email)){err.errors.email= "Invalid email"}
@@ -93,7 +92,6 @@ router.post(
     if (tryAddy){
       const err = new Error('User Already Exists');
         err.status = 403;
-        err.title = 'User Already Exists';
         err.errors = {
           "email": "User with that email already exists"
         };
