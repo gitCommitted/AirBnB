@@ -19,7 +19,7 @@ const validateReview = [
     handleValidationErrors
   ];
   
-  //part 2 create new review route handler
+  //part 2 edit review route handler
   
   router.put(
     '/:reviewId',

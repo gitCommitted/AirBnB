@@ -342,21 +342,6 @@ router.post(
 
 
 //create booking by spotId
-//part 1 validateBooking
-
-// const validateBooking = [
-
-//   check('endDate')
-//     //.exists({ checkFalsy: true })
-//     .isAfter(req.body.startDate)
-//     .withMessage('endDate cannot be on or before startDate'),
-//   handleValidationErrors
-// ];
-// const validateDates=[
-
-// ]
-
-//part 2 create new booking route handler
 
 router.post(
   '/:spotId/bookings',
@@ -383,12 +368,17 @@ router.post(
         err.status = 404;
         return next(err);
   }
-  if (startDate>=endDate){
-    const err = new Error("end Date cannot be bfore start");
-    err.status = 400;
-    return next(err);
-  }
-  let userBookings1=[1,2,3]
+
+    const newEnd = new Date(endDate)
+    const newStart = new Date(startDate)
+    if (newStart.valueOf()>=newEnd.valueOf()){
+        const err = new Error("Validation Error");
+        err.status = 400;
+        err.errors = {}
+        err.errors.endDate="endDate cannot be on or before startDate"
+        return next(err);
+    }
+ 
   const startBookings = await Booking.findAll({
     where: {
       spotId: req.params.spotId,
@@ -476,16 +466,17 @@ router.post(
   
 
   })
-  console.log(allBookings.length)
-  console.log(endBookings.length)
-  console.log(startBookings.length)
+
   if (startBookings.length>0||endBookings.length>0||allBookings.length>0){
-    const err = new Error("Bad dates");
-        err.status = 400;
+    const err = new Error("Sorry, this spot is already booked for the specified dates");
+        err.status = 403;
         err.errors = {}
-        if (startBookings.length>0){err.errors.startDate="bad startdate"}
-        if (endBookings.length>0){err.errors.endDate="bad enddate"}
-        if (allBookings.length>0){err.errors.startDate="bad startdate",err.errors.endDate="bad enddate"}
+        if (startBookings.length>0){err.errors.startDate="Start date conflicts with an existing booking"}
+        if (endBookings.length>0){err.errors.endDate="End date conflicts with an existing booking"}
+        if (allBookings.length>0){
+          err.errors.startDate="Start date conflicts with an existing booking",
+          err.errors.endDate="End date conflicts with an existing booking"
+        }
         return next(err);
   }
 
@@ -497,7 +488,7 @@ router.post(
             });
 
   const newBook = await Booking.findByPk(newBooking.id);
-  res.statusCode=201
+  res.statusCode=200
   return res.json(
     newBook
   );
