@@ -99,4 +99,33 @@ const isOwner = [
   }
 ];
 
-module.exports = { setTokenCookie, restoreUser, requireAuth, isOwner };
+
+const isntOwner = [
+  restoreUser,
+   async (req, _res, next) => {
+    const spot = req.params.spotId
+    console.log('spot: ',spot)
+    const owner = await Spot.findOne({
+      where: {
+        id: spot
+      }
+    })
+    if (!owner){
+      const err = new Error("Spot couldn't be found");
+          err.status = 404;
+          return next(err);
+    }
+    console.log('owner: ',owner)
+    console.log('req.user.id: ',req.user.id)
+    if (req.user.id!==owner.ownerId) 
+    return next();
+
+    const err = new Error('Forbidden');
+  
+  
+    err.status = 403;
+    return next(err);
+  }
+];
+
+module.exports = { setTokenCookie, restoreUser, requireAuth, isOwner, isntOwner };

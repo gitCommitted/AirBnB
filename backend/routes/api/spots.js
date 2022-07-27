@@ -1,6 +1,7 @@
 const express = require('express')
+const { Op } = require("sequelize");
 const sequelize = require('sequelize')
-const { setTokenCookie, requireAuth, restoreUser, isOwner } = require('../../utils/auth');
+const { setTokenCookie, requireAuth, restoreUser, isOwner, isntOwner } = require('../../utils/auth');
 const { User,Spot,Image,Review,Booking } = require('../../db/models');
 const { check, checkSchema } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -225,7 +226,9 @@ router.get(
     }
   );
 
-//create reveiw by spotId
+
+
+  //create reveiw by spotId
 //part 1 validateReview
 
 const validateReview = [
@@ -289,9 +292,11 @@ router.post(
   );
 })
 
+
+
  //get all bookings by spotId
 
-router.get(
+ router.get(
   '/:spotId/bookings',
   requireAuth,
   async (req, res, next) => {
@@ -332,5 +337,171 @@ router.get(
     });
     }
   );
+
+
+
+
+//create booking by spotId
+//part 1 validateBooking
+
+// const validateBooking = [
+
+//   check('endDate')
+//     //.exists({ checkFalsy: true })
+//     .isAfter(req.body.startDate)
+//     .withMessage('endDate cannot be on or before startDate'),
+//   handleValidationErrors
+// ];
+// const validateDates=[
+
+// ]
+
+//part 2 create new booking route handler
+
+router.post(
+  '/:spotId/bookings',
+  requireAuth,
+  isntOwner,
+  //validateBooking,
+  async (req, res, next) => {
+
+  const {spotId} = req.params 
+  const userId = req.user.id
+  //console.log('userId: ',userId)
+  const {startDate,endDate}=req.body
+  const Spots = await Spot.findOne({
+      where: {
+        id: spotId
+      },
+      attributes: {},
+      include: {
+        model: Review
+      }
+  });
+  if (!Spots){
+    const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+  }
+  if (startDate>=endDate){
+    const err = new Error("end Date cannot be bfore start");
+    err.status = 400;
+    return next(err);
+  }
+  let userBookings1=[1,2,3]
+  const startBookings = await Booking.findAll({
+    where: {
+      spotId: req.params.spotId,
+      [Op.or]: {
+        [Op.or]: [
+          {
+            startDate: {
+              [Op.eq]: req.body.startDate
+          }
+          },
+          {
+            endDate: {
+              [Op.eq]: req.body.startDate
+            }
+          }
+        ],
+        [Op.and]: [
+          {
+            startDate: {
+              [Op.lt]: req.body.startDate
+          }
+          },
+          {
+            endDate: {
+              [Op.gt]: req.body.startDate
+            }
+          }
+        ]
+      }
+    }
+  
+
+  })
+  const endBookings = await Booking.findAll({
+    where: {
+      spotId: req.params.spotId,
+      [Op.or]: {
+        [Op.or]: [
+          {
+            startDate: {
+              [Op.eq]: req.body.endDate
+          }
+          },
+          {
+            endDate: {
+              [Op.eq]: req.body.endDate
+            }
+          }
+        ],
+        [Op.and]: [
+          {
+            startDate: {
+              [Op.lt]: req.body.endDate
+          }
+          },
+          {
+            endDate: {
+              [Op.gt]: req.body.endDate
+            }
+          }
+        ]
+      }
+    }
+  
+
+  })
+  const allBookings = await Booking.findAll({
+    where: {
+      spotId: req.params.spotId,
+     
+        [Op.and]: [
+          {
+            startDate: {
+              [Op.gt]: req.body.startDate
+          }
+          },
+          {
+            endDate: {
+              [Op.lt]: req.body.endDate
+            }
+          }
+        ]
+      
+    }
+  
+
+  })
+  console.log(allBookings.length)
+  console.log(endBookings.length)
+  console.log(startBookings.length)
+  if (startBookings.length>0||endBookings.length>0||allBookings.length>0){
+    const err = new Error("Bad dates");
+        err.status = 400;
+        err.errors = {}
+        if (startBookings.length>0){err.errors.startDate="bad startdate"}
+        if (endBookings.length>0){err.errors.endDate="bad enddate"}
+        if (allBookings.length>0){err.errors.startDate="bad startdate",err.errors.endDate="bad enddate"}
+        return next(err);
+  }
+
+  const newBooking = await Booking.create({
+              userId,
+              spotId,
+              startDate,
+              endDate
+            });
+
+  const newBook = await Booking.findByPk(newBooking.id);
+  res.statusCode=201
+  return res.json(
+    newBook
+  );
+})
+
 
 module.exports = router;
