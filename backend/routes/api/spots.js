@@ -58,8 +58,11 @@ router.get(
       let size = parseInt(req.query.size, 10) 
       if(Number.isNaN(page)){page=0}
       if(Number.isNaN(size)){size=20}      
-      query.limit = size;
-      query.offset = size * (page-1);
+      if(page>0){
+        query.limit = size;
+        query.offset = size * (page-1)
+      }
+   
 
     if (req.query.minLat){
       query.where.Lat={
