@@ -106,4 +106,64 @@ const validateReview = [
     });
   }
   );
+
+//add image by review id
+
+router.post(
+    '/:reviewId/images',
+    requireAuth,
+   
+    async (req, res, next) => {
+    const {reviewId} = req.params 
+    const userId = req.user.id
+    console.log('userId: ',userId)
+    const {url}=req.body
+    const Reviews = await Review.findOne({
+        where: {
+          id: reviewId
+        }
+    });
+    if (!Reviews){
+      const err = new Error("Review couldn't be found");
+          err.status = 404;
+          return next(err);
+    }
+    if (Reviews.userId!==userId){
+        const err = new Error('Forbidden');
+        err.status = 403;
+        return next(err);
+    };
+    const maxImages = await Image.findAll({
+        where: {
+            imageableType: "review",
+            imageableId: reviewId
+        }
+    })
+    if (maxImages.length>=10){
+        const err = new Error("Maximum number of images for this resource was reached");
+          err.status = 403;
+          return next(err);
+    }
+    const imageableType = "review"
+    const imageableId = reviewId
+    const newImage = await Image.create({
+                imageableType,
+                imageableId,
+                url
+              });
+    const newIm = await Image.findOne({
+      where: {
+        id: newImage.id
+      },
+      attributes: ['id','imageableId','url']
+    });
+    
+    res.statusCode=200
+    return res.json(
+      newIm
+    );
+  })
+
+
+
 module.exports = router;
