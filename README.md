@@ -1,12 +1,14 @@
-# `AirBnB-Clone`
+# `<name of application here>`
 
 ## Database Schema Design
 
-`DBdiagram.png`
+`<insert database schema design here>`
 
 ## API Documentation
 
-## All endpoints that require authentication
+## FEATURE 0: USER AUTHORIZATION
+
+### All endpoints that require authentication
 
 All endpoints that require a current user to be logged in.
 
@@ -24,7 +26,7 @@ All endpoints that require a current user to be logged in.
     }
     ```
 
-## All endpoints that require proper authorization
+### All endpoints that require proper authorization
 
 All endpoints that require authentication and the current user does not have the
 correct role(s) or permission(s).
@@ -43,14 +45,14 @@ correct role(s) or permission(s).
     }
     ```
 
-## Get the Current User
+### Get the Current User
 
 Returns the information about the current user that is logged in.
 
 * Require Authentication: true
 * Request
   * Method: Get
-  * URL: '/me'
+  * URL: /me
   * Body: none
 
 * Successful Response
@@ -68,15 +70,15 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-## Log In a User
+### Log In a User
 
 Logs in a current user with valid credentials and returns the current user's
 information.
 
 * Require Authentication: false
 * Request
-  * Method: Get
-  * URL: '/login'
+  * Method: POST
+  * URL: /login
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -134,14 +136,14 @@ information.
     }
     ```
 
-## Sign Up a User
+### Sign Up a User
 
 Creates a new user, logs them in as the current user, and returns the current
 user's information.
 
 * Require Authentication: false
 * Request
-  * Method: Post
+  * Method: POST
   * URL: /signup
   * Headers:
     * Content-Type: application/json
@@ -206,13 +208,15 @@ user's information.
     }
     ```
 
-## Get all Spots
+## FEATURE 1: SPOTS FEATURE
+
+### Get all Spots
 
 Returns all the spots.
 
 * Require Authentication: false
 * Request
-  * Method: Get
+  * Method: GET
   * URL: /spots
   * Body: none
 
@@ -245,14 +249,14 @@ Returns all the spots.
     }
     ```
 
-## Get all Spots owned by the Current User
+### Get all Spots owned by the Current User
 
 Returns all the spots owned (created) by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: Get
-  * URL: /me/spots
+  * Method: GET
+  * URL: me/spots
   * Body: none
 
 * Successful Response
@@ -284,14 +288,14 @@ Returns all the spots owned (created) by the current user.
     }
     ```
 
-## Get details of a Spot from an id
+### Get details of a Spot from an id
 
 Returns the details of a spot specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: Get
-  * URL: /spots/:spotId
+  * Method: GET
+  * URL: spots/:spotId
   * Body: none
 
 * Successful Response
@@ -317,8 +321,12 @@ Returns the details of a spot specified by its id.
       "updatedAt": "2021-11-19 20:39:36" ,
       "numReviews": 5,
       "avgStarRating": 4.5,
-      "images": [
-        "image url"
+      "Images": [
+        {
+          "id": 1,
+          "imageableId": 1,
+          "url": "image url"
+        }
       ],
       "Owner": {
         "id": 1,
@@ -341,13 +349,13 @@ Returns the details of a spot specified by its id.
     }
     ```
 
-## Create a Spot
+### Create a Spot
 
 Creates and returns a new spot.
 
 * Require Authentication: true
 * Request
-  * Method: Post
+  * Method: POST
   * URL: /spots
   * Headers:
     * Content-Type: application/json
@@ -387,7 +395,7 @@ Creates and returns a new spot.
       "description": "Place where web developers are created",
       "price": 123,
       "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36" 
+      "updatedAt": "2021-11-19 20:39:36"
     }
     ```
 
@@ -415,15 +423,15 @@ Creates and returns a new spot.
     }
     ```
 
-## Edit a Spot
+### Edit a Spot
 
 Updates and returns an existing spot.
 
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: Put
-  * URL: /spot/:spotId
+  * Method: PUT
+  * URL: /spots/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -462,7 +470,7 @@ Updates and returns an existing spot.
       "description": "Place where web developers are created",
       "price": 123,
       "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-20 10:06:40" 
+      "updatedAt": "2021-11-20 10:06:40"
     }
     ```
 
@@ -503,15 +511,15 @@ Updates and returns an existing spot.
     }
     ```
 
-## Delete a Spot
+### Delete a Spot
 
 Deletes an existing spot.
 
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: Delete
-  * URL: /spots/:spotId
+  * Method: DELETE
+  * URL: spots/:spotId
   * Body: none
 
 * Successful Response
@@ -523,7 +531,7 @@ Deletes an existing spot.
     ```json
     {
       "message": "Successfully deleted",
-      "statusCode": 200 
+      "statusCode": 200
     }
     ```
 
@@ -540,14 +548,16 @@ Deletes an existing spot.
     }
     ```
 
-## Get all Reviews of the Current User
+## FEATURE 2: REVIEWS FEATURE
+
+### Get all Reviews of the Current User
 
 Returns all the reviews written by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: Get
-  * URL: /me/reviews
+  * Method: GET
+  * URL: me/reviews
   * Body: none
 
 * Successful Response
@@ -584,22 +594,26 @@ Returns all the reviews written by the current user.
             "name": "App Academy",
             "price": 123
           },
-          "images": [
-            "image url"
-          ]
+          "Images": [
+            {
+              "id": 1,
+              "imageableId": 1,
+              "url": "image url"
+            }
+          ],
         }
       ]
     }
     ```
 
-## Get all Reviews by a Spot's id
+### Get all Reviews by a Spot's id
 
 Returns all the reviews that belong to a spot specified by id.
 
 * Require Authentication: false
 * Request
-  * Method: Get
-  * URL: /spots/:spotId/reviews
+  * Method: GET
+  * URL: spots/:spotId/reviews
   * Body: none
 
 * Successful Response
@@ -624,9 +638,13 @@ Returns all the reviews that belong to a spot specified by id.
             "firstName": "John",
             "lastName": "Smith"
           },
-          "images": [
-            "image url"
-          ]
+          "Images": [
+            {
+              "id": 1,
+              "imageableId": 1,
+              "url": "image url"
+            }
+          ],
         }
       ]
     }
@@ -645,14 +663,14 @@ Returns all the reviews that belong to a spot specified by id.
     }
     ```
 
-## Create a Review for a Spot based on the Spot's id
+### Create a Review for a Spot based on the Spot's id
 
 Create and return a new review for a spot specified by id.
 
 * Require Authentication: true
 * Request
-  * Method: Post
-  * URL: /Reviews
+  * Method: POST
+  * URL: spots/:spotId/reviews
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -665,7 +683,7 @@ Create and return a new review for a spot specified by id.
     ```
 
 * Successful Response
-  * Status Code: 200
+  * Status Code: 201
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -678,7 +696,7 @@ Create and return a new review for a spot specified by id.
       "review": "This was an awesome spot!",
       "stars": 5,
       "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36" 
+      "updatedAt": "2021-11-19 20:39:36"
     }
     ```
 
@@ -725,15 +743,15 @@ Create and return a new review for a spot specified by id.
     }
     ```
 
-## Edit a Review
+### Edit a Review
 
 Update and return an existing review.
 
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: Put
-  * URL: /Review/:id
+  * Method: PUT
+  * URL: /reviews/:reviewId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -793,15 +811,15 @@ Update and return an existing review.
     }
     ```
 
-## Delete a Review
+### Delete a Review
 
 Delete an existing review.
 
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: Delete
-  * URL: /Reviews/:id
+  * Method: DELETE
+  * URL: reviews/:reviewId
   * Body: none
 
 * Successful Response
@@ -813,7 +831,7 @@ Delete an existing review.
     ```json
     {
       "message": "Successfully deleted",
-      "statusCode": 200 
+      "statusCode": 200
     }
     ```
 
@@ -829,15 +847,16 @@ Delete an existing review.
       "statusCode": 404
     }
     ```
+## FEATURE 3: BOOKINGS FEATURE
 
-## Get all of the Current User's Bookings
+### Get all of the Current User's Bookings
 
 Return all the bookings that the current user has made.
 
 * Require Authentication: true
 * Request
-  * Method: Get
-  * URL: /Bookings/userId
+  * Method: GET
+  * URL: me/bookings
   * Body: none
 
 * Successful Response
@@ -867,7 +886,7 @@ Return all the bookings that the current user has made.
           },
           "userId": 2,
           "startDate": "2021-11-19",
-          "endDate": "2021-11-19",
+          "endDate": "2021-11-20",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36"
         }
@@ -875,14 +894,14 @@ Return all the bookings that the current user has made.
     }
     ```
 
-## Get all Bookings for a Spot based on the Spot's id
+### Get all Bookings for a Spot based on the Spot's id
 
 Return all the bookings for a spot specified by id.
 
 * Require Authentication: true
 * Request
-  * Method: Get
-  * URL: /Bookings/spotId
+  * Method: GET
+  * URL: spots/:spotId/bookings
   * Body: none
 
 * Successful Response: If you ARE NOT the owner of the spot.
@@ -897,7 +916,7 @@ Return all the bookings for a spot specified by id.
         {
           "spotId": 1,
           "startDate": "2021-11-19",
-          "endDate": "2021-11-19"
+          "endDate": "2021-11-20"
         }
       ]
     }
@@ -922,7 +941,7 @@ Return all the bookings for a spot specified by id.
           "spotId": 1,
           "userId": 2,
           "startDate": "2021-11-19",
-          "endDate": "2021-11-19",
+          "endDate": "2021-11-20",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36"
         }
@@ -943,16 +962,23 @@ Return all the bookings for a spot specified by id.
     }
     ```
 
-## Create a Booking from a Spot based on the Spot's id
+### Create a Booking from a Spot based on the Spot's id
 
 Create and return a new booking from a spot specified by id.
 
 * Require Authentication: true
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
-  * Method: Post
-  * URL: /Bookings/spotId
-  * Body: none
+  * Method: POST
+  * URL: spot/:spotId/bookings
+  * Body:
+
+    ```json
+    {
+      "startDate": "2021-11-19",
+      "endDate": "2021-11-20"
+    }
+    ```
 
 * Successful Response
   * Status Code: 200
@@ -966,9 +992,25 @@ Create and return a new booking from a spot specified by id.
       "spotId": 1,
       "userId": 2,
       "startDate": "2021-11-19",
-      "endDate": "2021-11-19",
+      "endDate": "2021-11-20",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36"
+    }
+    ```
+
+* Error response: Body validation errors
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Validation error",
+      "statusCode": 400,
+      "errors": {
+        "endDate": "endDate cannot be on or before startDate"
+      }
     }
     ```
 
@@ -1002,15 +1044,15 @@ Create and return a new booking from a spot specified by id.
     }
     ```
 
-## Edit a Booking
+### Edit a Booking
 
 Update and return an existing booking.
 
 * Require Authentication: true
 * Require proper authorization: Booking must belong to the current user
 * Request
-  * Method: Put
-  * URL: /Bookings/:id
+  * Method: PUT
+  * URL: /bookings/:bookingId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1018,7 +1060,7 @@ Update and return an existing booking.
     ```json
     {
       "startDate": "2021-11-19",
-      "endDate": "2021-11-19"
+      "endDate": "2021-11-20"
     }
     ```
 
@@ -1034,9 +1076,25 @@ Update and return an existing booking.
       "spotId": 1,
       "userId": 2,
       "startDate": "2021-11-19",
-      "endDate": "2021-11-19",
+      "endDate": "2021-11-20",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 10:06:40"
+    }
+    ```
+
+* Error response: Body validation errors
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Validation error",
+      "statusCode": 400,
+      "errors": {
+        "endDate": "endDate cannot come before startDate"
+      }
     }
     ```
 
@@ -1054,7 +1112,7 @@ Update and return an existing booking.
     ```
 
 * Error response: Can't edit a booking that's past the end date
-  * Status Code: 400
+  * Status Code: 403
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1062,7 +1120,7 @@ Update and return an existing booking.
     ```json
     {
       "message": "Past bookings can't be modified",
-      "statusCode": 400
+      "statusCode": 403
     }
     ```
 
@@ -1083,7 +1141,7 @@ Update and return an existing booking.
     }
     ```
 
-## Delete a Booking
+### Delete a Booking
 
 Delete an existing booking.
 
@@ -1091,8 +1149,8 @@ Delete an existing booking.
 * Require proper authorization: Booking must belong to the current user or the
   Spot must belong to the current user
 * Request
-  * Method: Delete
-  * URL: /Bookings/:id
+  * Method: DELETE
+  * URL: bookings/:bookingId
   * Body: none
 
 * Successful Response
@@ -1121,8 +1179,8 @@ Delete an existing booking.
     }
     ```
 
-* Error response: Can't delete a booking that's past the start date
-  * Status Code: 400
+* Error response: Bookings that have been started can't be deleted
+  * Status Code: 403
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1130,19 +1188,21 @@ Delete an existing booking.
     ```json
     {
       "message": "Bookings that have been started can't be deleted",
-      "statusCode": 400
+      "statusCode": 403
     }
     ```
 
-## Add an Image to a Spot based on the Spot's id
+## FEATURE 4: IMAGES FEATURE
+
+### Add an Image to a Spot based on the Spot's id
 
 Create and return a new image for a spot specified by id.
 
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: Put
-  * URL: /Spot/:id
+  * Method: POST
+  * URL: spots/:spotId/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1163,7 +1223,6 @@ Create and return a new image for a spot specified by id.
     {
       "id": 1,
       "imageableId": 1,
-      "imageableType": "Spot",
       "url": "image url",
     }
     ```
@@ -1181,15 +1240,15 @@ Create and return a new image for a spot specified by id.
     }
     ```
 
-## Add an Image to a Review based on the Review's id
+### Add an Image to a Review based on the Review's id
 
 Create and return a new image for a review specified by id.
 
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: Put
-  * URL: /Review/:id/Images
+  * Method: POST
+  * URL: review/:reviewId/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1210,7 +1269,6 @@ Create and return a new image for a review specified by id.
     {
       "id": 1,
       "imageableId": 1,
-      "imageableType": "Review",
       "url": "image url",
     }
     ```
@@ -1230,7 +1288,7 @@ Create and return a new image for a review specified by id.
 
 * Error response: Cannot add any more images because there is a maximum of 10
   images per resource
-  * Status Code: 400
+  * Status Code: 403
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1238,20 +1296,19 @@ Create and return a new image for a review specified by id.
     ```json
     {
       "message": "Maximum number of images for this resource was reached",
-      "statusCode": 400
+      "statusCode": 403
     }
     ```
 
-## Delete an Image
+### Delete an Image
 
 Delete an existing image.
 
 * Require Authentication: true
-* Require proper authorization: Image must belong to the current user through
-  the image's imageableId and imageableType
+* Require proper authorization: Image must belong to the current user
 * Request
-  * Method: Delete
-  * URL: /Images/:id
+  * Method: DELETE
+  * URL: images/:imageId
   * Body: none
 
 * Successful Response
@@ -1286,8 +1343,8 @@ Return spots filtered by query parameters.
 
 * Require Authentication: false
 * Request
-  * Method: Get
-  * URL: /Spots
+  * Method: GET
+  * URL: /spots
   * Query Parameters
     * page: integer, minimum: 0, maximum: 10, default: 0
     * size: integer, minimum: 0, maximum: 20, default: 20
@@ -1347,8 +1404,8 @@ Return spots filtered by query parameters.
         "minLat": "Minimum latitude is invalid",
         "minLng": "Maximum longitude is invalid",
         "maxLng": "Minimum longitude is invalid",
-        "minPrice": "Maximum price must be greater than 0",
-        "maxPrice": "Minimum price must be greater than 0"
+        "minPrice": "Maximum price must be greater than or equal to 0",
+        "maxPrice": "Minimum price must be greater than or equal to 0"
       }
     }
     ```
