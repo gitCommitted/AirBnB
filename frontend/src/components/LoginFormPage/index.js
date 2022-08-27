@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import './LoginForm.css';
 
 function LoginFormPage() {
@@ -11,7 +11,7 @@ function LoginFormPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
-
+  const history = useHistory()
   if (sessionUser) return (
     <Redirect to="/" />
   );
@@ -19,11 +19,16 @@ function LoginFormPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.login({ email, password }))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
+    let obj = dispatch(sessionActions.login({ email, password }))
+    if (obj) {
+       dispatch(sessionActions.restoreUser())
+      history.push(`/`);
+    }
+      // .catch(async (res) => {
+      //   const data = await res.json();
+      //   if (data && data.errors) setErrors(data.errors);
+      // });
+  
   }
 
   return (

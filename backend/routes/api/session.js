@@ -38,8 +38,7 @@ router.post(
   
       return res.json( {
         "id": user.id,
-        "firstName": user.firstName,
-        "lastName": user.lastName,
+        "userName": user.userName,
         "email": user.email,
         "token": token
       });
@@ -72,15 +71,14 @@ router.get(
 router.post(
   '/signup',
   async (req, res, next) => {
-    const { firstName, lastName, email, password } = req.body;
-    if (!email || !firstName || !lastName){
+    const { userName, email, password } = req.body;
+    if (!email || !userName){
       const err = new Error('Validation Failed');
       err.status = 400;
       err.errors = {};
       if (!email) {err.errors.email= "Email Required"}
       if (email && !validator.isEmail(email)){err.errors.email= "Invalid email"}
-      if (!firstName){err.errors.firstName="First Name Required"}
-      if (!lastName){err.errors.lastName="last Name Required"}
+      if (!userName){err.errors.userName="user Name Required"}
       return next(err);
     }
     
@@ -99,14 +97,13 @@ router.post(
     }
 
 
-    const user = await User.signup({ firstName, lastName, email, password });
+    const user = await User.signup({ userName, email, password });
 
     const token=await setTokenCookie(res, user);
 
     return res.json( {
       "id": user.id,
-      "firstName": user.firstName,
-      "lastName": user.lastName,
+      "userName": user.userName,
       "email": user.email,
       "token": token
     });

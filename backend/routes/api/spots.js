@@ -154,7 +154,7 @@ router.get(
      where: {
       id: Spots.ownerId
      },
-     attributes: ['id','firstName','lastName']
+     attributes: ['id','userName']
    })
   return res.json({
   "id": Spots.id,
@@ -311,7 +311,7 @@ router.get(
     },
     include: [{
       model: User,
-      attributes:['id','firstName','lastName']
+      attributes:['id','userName']
     },
    {
       model: Image,
@@ -428,7 +428,7 @@ router.post(
       },
       include: {
         model: User,
-        attributes: ['id','firstName','lastName']
+        attributes: ['id','userName']
       }
     })
     }

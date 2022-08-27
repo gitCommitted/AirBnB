@@ -20,7 +20,7 @@ router.get(
         where: {
           id: user.id
         },
-        attributes: ['id', 'firstName', 'lastName', 'email']
+        attributes: ['id', 'userName', 'email']
     });
       return res.json(trees);
     }
@@ -33,7 +33,7 @@ router.get(
     
     trees = await User.findAll({
       
-      attributes: ['id', 'firstName', 'lastName', 'email']
+      attributes: ['id', 'userName', 'email']
   });
     return res.json(trees);
   }
@@ -88,7 +88,7 @@ router.get(
       },
       include: [{
         model: User,
-        attributes:['id','firstName','lastName']
+        attributes:['id','userName']
       },
       {
         model: Spot,
