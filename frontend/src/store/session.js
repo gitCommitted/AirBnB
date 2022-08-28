@@ -26,7 +26,7 @@ export const login = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  dispatch(setUser(data.user));
+  dispatch(setUser(data));
   return response;
 };
 
@@ -49,7 +49,8 @@ export const restoreUser = () => async dispatch => {
       }),
     });
     const data = await response.json();
-    dispatch(setUser(data.user));
+    console.log('dispatching to set user: ', data)
+    dispatch(setUser(data));
     return response;
   };
 
@@ -70,6 +71,7 @@ const sessionReducer = (state = initialState, action) => {
     case SET_USER:
       newState = Object.assign({}, state);
       newState.user = action.payload;
+      console.log('new state from set-user: ',newState)
       return newState;
     case REMOVE_USER:
       newState = Object.assign({}, state);

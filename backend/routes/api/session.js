@@ -87,12 +87,17 @@ router.post(
         email: email
       }
     })
-    if (tryAddy){
-      const err = new Error('User Already Exists');
+    const tryUser = await User.findOne({
+      where : {
+        userName: userName
+      }
+    })
+    if (tryAddy || tryUser){
+      const err = new Error('Email or Username Already Exists');
         err.status = 403;
-        err.errors = {
-          "email": "User with that email already exists"
-        };
+        err.errors = {}
+        if (tryAddy)  {err.errors.email= "User with that email already exists"}
+        if (tryUser) {err.errors.user="Username already exists"}
         return next(err);
     }
 

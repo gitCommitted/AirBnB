@@ -19,23 +19,22 @@ function LoginFormPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    let obj = dispatch(sessionActions.login({ email, password }))
-    if (obj) {
-       dispatch(sessionActions.restoreUser())
-      history.push(`/`);
-    }
-      // .catch(async (res) => {
-      //   const data = await res.json();
-      //   if (data && data.errors) setErrors(data.errors);
-      // });
+    return dispatch(sessionActions.login({ email, password }))
+      .catch(async (res) => {
+        
+        const data = await res.json();
+        console.log(data)
+        if (data && data.message) setErrors([data.message]);
+      });
   
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <ul>
-        {/* {errors.map((error, idx) => <li key={idx}>{error}</li>)} */}
-        {console.log(errors)}
+       
+        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+      
       </ul>
       <label>
         Username or Email
