@@ -15,14 +15,17 @@ function Home(){
         return state.spots.Spots;
       });
       console.log(spots)
+if (spots){
+let Mapper = 
+  
+ spots.map((spot)=>(
+    
+    <NavLink key={spot.id} to={`/spots/${spot.id}`}>{spot.name}</NavLink>
+    
+ ))
 
-const mapper = () => {
-  if(spots){  
-return spots.map((spot)=>{
-    <NavLink key={spot['id']} to={`/spots/${spot['id']}`}>{spot['name']}</NavLink>
-})
-}}
-console.log(mapper())
+console.log(Mapper)
+ }
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
@@ -35,7 +38,8 @@ console.log(mapper())
       <>
       
         <NavLink to="/login">Logged In, this link (will be a spot)</NavLink>
-       {mapper()}
+    {Mapper}
+    
       </>
     );
   }
