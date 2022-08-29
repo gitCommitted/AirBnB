@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import './LoginForm.css';
 
 function LoginFormPage() {
@@ -55,6 +55,13 @@ function LoginFormPage() {
         />
       </label>
       <button type="submit">Log In</button>
+      <button onClick={(e)=>
+      {
+      setEmail('demo@user.io')
+      setPassword('password')
+      }
+      }>AA instructor? Click here to login as a demo user</button>
+      <NavLink to="/signup">No account? Click here to sign up</NavLink>
     </form>
   );
 }
