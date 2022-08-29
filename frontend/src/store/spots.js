@@ -30,8 +30,8 @@ export const getSpotDetail = (id) => async (dispatch) => {
 	const response = await fetch(`/api/spots/${id}`);
 
 	if (response.ok) {
-		const item = await response.json();
-		dispatch(addOneSpot(item));
+		const spot = await response.json();
+		dispatch(addOneSpot(spot));
 	}
 };
 export const createSpot = (payload) => async (dispatch) => {
@@ -68,7 +68,7 @@ export const editSpot = (payload) => async (dispatch) => {
 
 
 export const getspotTypes = () => async (dispatch) => {
-	const response = await fetch(`/api/spot/types`);
+	const response = await fetch(`/api/spots/types`);
 
 	if (response.ok) {
 		const types = await response.json();
@@ -85,6 +85,15 @@ const spotsReducer = (state = initialState, action) => {
 			console.log(action.list)
             newState=action.list
             return newState
+        case ADD_ONE:
+            console.log('action spot: ',action.spot)
+            console.log('state: ',state.spot)
+            return {
+				...state,
+				[action.spot.id]: {
+					...state[action.spot.id],
+					...action.spot,
+				}}
 		default:
 			return state;
 	}

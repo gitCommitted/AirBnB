@@ -8,6 +8,7 @@ import MySpots from "./components/MySpots/MySpots";
 import Home from "./components/HomePage/HomePage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import SpotDetails from "./components/SpotDetails/SpotDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/mybookings">
             <MyBookings />
+          </Route>
+          <Route path="/spots/:spotId">
+            <SpotDetails />
           </Route>
           <Route path="/">
             <Home />

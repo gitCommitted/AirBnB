@@ -10,45 +10,51 @@ function Home(){
     const dispatch = useDispatch();
     useEffect(()=>{
       dispatch(getSpots())
-    }, [])
+    }, [dispatch])
     const spots = useSelector(state => {
         return state.spots.Spots;
       });
       console.log(spots)
-if (spots){
-let Mapper = 
-  
- spots.map((spot)=>(
     
-    <NavLink key={spot.id} to={`/spots/${spot.id}`}>{spot.name}</NavLink>
-    
- ))
 
-console.log(Mapper)
- }
+
+
+ 
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
-  if (!sessionUser) {
+  if (sessionUser && spots) {
     sessionLinks = (
-        <NavLink to="/login">Not logged in, this Link (not a spot)</NavLink>
+        <>
+      
+        <h1>Spots:</h1>
+     <ul>
+        {spots.map((spot)=>(
+     <li>
+   <NavLink key={spot.id} to={`/spots/${spot.id}`}>{spot.name}</NavLink> </li>))}
+   </ul>
+      </>
     );
-  } else {
+  } else  if (!sessionUser && spots){
     sessionLinks = (
       <>
       
-        <NavLink to="/login">Logged In, this link (will be a spot)</NavLink>
-    {Mapper}
-    
+      <h1>Spots:</h1>
+   <ul>
+      {spots.map((spot)=>(
+   <li>
+   <NavLink key={spot.id} to={`/login`}>{spot.name}</NavLink>
+   </li>))}
+   </ul>
       </>
     );
   }
 
-  return (
+  return(
     <ul>
       <li>
-       
         {sessionLinks}
+    
       </li>
     </ul>
   );
