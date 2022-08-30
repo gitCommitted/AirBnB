@@ -15,14 +15,14 @@ const NewBooking = () => {
     let id = useParams();
    
     let spotId = Number(id.spotId)
-    console.log(spotId)
+    //console.log(spotId)
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [errors, setErrors] = useState([]);
     let newBook
     const spot = useSelector(state => state.spots);
     const userId = useSelector(state => state.session.user['id'])
-    console.log(userId)
+    //console.log(userId)
 //console.log(spot)
     const handleSubmit = (e) => {
         e.preventDefault();
