@@ -1,6 +1,6 @@
 import './SpotDetails.css';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail } from '../../store/spots';
 
@@ -11,10 +11,10 @@ const SpotDetails = () => {
     
     
     useEffect(() => {
-        dispatch (getSpotDetail(spotId))
+        dispatch(getSpotDetail(spotId))
       }, [spotId]);
     const spot = useSelector(state => state.spots);
-    console.log("spot: ",spot)
+    //console.log("spot: ",spot)
       let vals
     console.log(spot)
     if (spot[spotId]){
@@ -50,6 +50,7 @@ if (spot[spotId]){
         Price: {vals[6]}
     </li>
    </ul>
+   <NavLink to={`/${vals[0]}/bookings`}>Book this spot now!</NavLink>
       </>
     )
 }
@@ -57,6 +58,7 @@ if (spot[spotId]){
     return (
         <>
         {deets}
+       
         </>
     )
 }

@@ -1,6 +1,8 @@
-const LOAD = "spot/LOAD";
-const LOAD_TYPES = "spot/LOAD_TYPES";
-const ADD_ONE = "spot/ADD_ONE";
+import { csrfFetch } from "./csrf";
+
+const LOAD = "bookings/LOAD";
+const LOAD_TYPES = "bookings/LOAD_TYPES";
+const ADD_ONE = "bookings/ADD_ONE";
 
 const load = (list) => ({
 	type: LOAD,
@@ -12,13 +14,13 @@ const loadTypes = (types) => ({
 	types,
 });
 
-const addOneSpot = (spot) => ({
+const addOneBooking = (booking) => ({
 	type: ADD_ONE,
-	spot,
+	booking,
 });
 
-export const getSpots = () => async (dispatch) => {
-	const response = await fetch(`/api/spots`);
+export const getBookings = () => async (dispatch) => {
+	const response = await fetch(`/api/me/bookings`);
 
 	if (response.ok) {
 		const list = await response.json();
@@ -26,16 +28,17 @@ export const getSpots = () => async (dispatch) => {
 	}
 };
 
-export const getSpotDetail = (id) => async (dispatch) => {
+export const getBookingDetail = (id) => async (dispatch) => {
 	const response = await fetch(`/api/spots/${id}`);
 
 	if (response.ok) {
-		const spot = await response.json();
-		dispatch(addOneSpot(spot));
+		const booking = await response.json();
+		dispatch(addOneBooking(booking));
 	}
 };
-export const createSpot = (payload) => async (dispatch) => {
-	let response = await fetch(`/api/spots`, {
+export const createBooking = (payload) => async (dispatch) => {
+    let spotId = payload.spotId
+	let response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
@@ -45,12 +48,12 @@ export const createSpot = (payload) => async (dispatch) => {
 	console.log('making api request: ',payload)
 	if (response.ok) {
 		const newGuy = await response.json();
-		dispatch(addOneSpot(newGuy));
+		dispatch(addOneBooking(newGuy));
 		return newGuy
 	}
 };
 
-export const editSpot = (payload) => async (dispatch) => {
+export const editBooking = (payload) => async (dispatch) => {
 	let response = await fetch(`/api/spots/${payload.id}`, {
 		method: "PUT",
 		headers: {
@@ -61,24 +64,17 @@ export const editSpot = (payload) => async (dispatch) => {
 	//console.log('making api request: ',payload)
 	if (response.ok) {
 		const newGuy = await response.json();
-		dispatch(addOneSpot(newGuy));
+		dispatch(addOneBooking(newGuy));
 		return newGuy
 	}
 };
 
 
-export const getspotTypes = () => async (dispatch) => {
-	const response = await fetch(`/api/spots/types`);
 
-	if (response.ok) {
-		const types = await response.json();
-		dispatch(loadTypes(types));
-	}
-};
 
 const initialState={}
 
-const spotsReducer = (state = initialState, action) => {
+const bookingsReducer = (state = initialState, action) => {
 	let newState
     switch (action.type) {
 		case LOAD:
@@ -90,13 +86,13 @@ const spotsReducer = (state = initialState, action) => {
             //console.log('state: ',state.spot)
             return {
 				...state,
-				[action.spot.id]: {
-					...state[action.spot.id],
-					...action.spot,
+				[action.booking.id]: {
+					...state[action.booking.id],
+					...action.booking,
 				}}
 		default:
 			return state;
 	}
 };
 
-export default spotsReducer;
+export default bookingsReducer;

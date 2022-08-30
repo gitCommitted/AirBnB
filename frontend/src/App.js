@@ -9,6 +9,7 @@ import Home from "./components/HomePage/HomePage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotDetails from "./components/SpotDetails/SpotDetails";
+import NewBooking from "./components/NewBookingForm/NewBookingForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/spots/:spotId">
             <SpotDetails />
+          </Route>
+          <Route path="/:spotId/bookings">
+            <NewBooking />
           </Route>
           <Route path="/">
             <Home />
