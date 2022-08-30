@@ -16,7 +16,7 @@ const MyBookings = () => {
       }, [dispatch]);
     const bookings = useSelector(state => state.bookings.Bookings);
    
-console.log(bookings)
+//console.log(bookings)
 
 
 

@@ -22,7 +22,7 @@ function SignupFormPage() {
       return dispatch(sessionActions.signup({ email, userName, password }))
         .catch(async (res) => {
           const data = await res.json();
-          console.log(data)
+          //console.log(data)
           if (data && data.errors) setErrors(Object.values(data.errors));
         });
     }
@@ -32,7 +32,7 @@ function SignupFormPage() {
   return (
     <form onSubmit={handleSubmit}>
       <ul>
-        {console.log(errors)}
+        
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       <label>
