@@ -588,10 +588,21 @@ router.post(
               endDate
             });
 
-  const newBook = await Booking.findByPk(newBooking.id);
+  const newBook = await Booking.findOne({
+  where: {
+    id: newBooking.id
+  },
+  include: 
+  {
+    model: Spot,
+    attributes: {exclude: ['description','createdAt','updatedAt']}
+  }
+
+  })
+
   res.statusCode=200
   return res.json(
-    newBook
+   newBook 
   );
 })
 

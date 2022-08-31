@@ -1,9 +1,9 @@
 import './NewBookingForm.css';
 
 import { useState, useEffect } from 'react';
-import { useParams, NavLink, useHistory } from 'react-router-dom';
+import { useParams, NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { createBooking } from '../../store/bookings'
+import { createBooking, getBookings } from '../../store/bookings'
 
 
     
@@ -20,8 +20,10 @@ const NewBooking = () => {
     const [endDate, setEndDate] = useState("");
     const [errors, setErrors] = useState([]);
     let newBook
+   
     const spot = useSelector(state => state.spots);
     const userId = useSelector(state => state.session.user['id'])
+    if (newBook) return <Redirect to="/mybookings" />;
     //console.log(userId)
 //console.log(spot)
     const handleSubmit = (e) => {
@@ -29,10 +31,12 @@ const NewBooking = () => {
         
           setErrors([]);
           
-            newBook=  dispatch(createBooking({ spotId, userId, startDate,endDate }))
-              
-            if (newBook){
-            history.push(`/mybookings`)}
+            newBook=   dispatch(createBooking({ spotId, userId, startDate,endDate })).then(() => history.push('/mybookings'))
+              if (newBook){
+                    dispatch(getBookings())
+                  
+              }
+             console.log(newBook)
             
         //     .catch(async (res) => {
         //       const data = await res.json();

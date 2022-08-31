@@ -6,15 +6,17 @@ import { getBookings } from '../../store/bookings';
 import { getSpots } from '../../store/spots';
 const MyBookings = () => {
     const dispatch= useDispatch();
-
+    //const bookings = useSelector(state => state.bookings.Bookings);
     
-    
+    const bookings = useSelector(state => state.bookings.Bookings);
     
     useEffect(() => {
         dispatch(getBookings())
+        console.log('dispatch from form')
         
-      }, [dispatch]);
-    const bookings = useSelector(state => state.bookings.Bookings);
+      }, []);
+   
+     //bookings = useSelector(state => state.bookings.Bookings);
    
 //console.log(bookings)
 

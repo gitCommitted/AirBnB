@@ -83,24 +83,17 @@ const bookingsReducer = (state = initialState, action) => {
             return newState
         case ADD_ONE:
             //console.log('action spot: ',action.spot)
-            //console.log('state: ',state.spot)
-            if (!state[action.booking.id]) {
-			 newState = {
-					...state,
-					[action.booking.id]: action.booking,
-				};
-                //console.log(newState)
-				
-				newState.Bookings.push(action.bookings);
-				
-				return newState;
-			}
-            return {
-				...state,
-				[action.booking.id]: {
-					...state[action.booking.id],
-					...action.booking,
-				}}
+            console.log('old state: ',state)
+            console.log('state Bookings: ',state.Bookings)
+            newState = state
+           newState.Bookings.push(action.booking)
+           return newState
+            // return {
+			// 	...state,
+			// 	[action.booking.id]: {
+			// 		...state[action.booking.id],
+			// 		...action.booking,
+			// 	}}
 		default:
 			return state;
 	}
