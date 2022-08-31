@@ -54,7 +54,8 @@ export const createBooking = (payload) => async (dispatch) => {
 };
 
 export const editBooking = (payload) => async (dispatch) => {
-	let response = await fetch(`/api/spots/${payload.id}`, {
+    let bookingId = Number(payload.bookingId)
+	let response = await csrfFetch(`/api/bookings/${bookingId}`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json"
@@ -68,7 +69,19 @@ export const editBooking = (payload) => async (dispatch) => {
 		return newGuy
 	}
 };
-
+export const removeBooking = (id) => async (dispatch) => {
+  
+	let response = await csrfFetch(`/api/bookings/${id}`, {
+		method: "DELETE",
+	
+	});
+	//console.log('making api request: ',payload)
+	if (response.ok) {
+		const newGuy = await response.json();
+		//dispatch(addOneBooking(newGuy));
+		return newGuy
+	}
+};
 
 
 
@@ -85,9 +98,27 @@ const bookingsReducer = (state = initialState, action) => {
             //console.log('action spot: ',action.spot)
             console.log('old state: ',state)
             console.log('state Bookings: ',state.Bookings)
+            console.log('book id',action.booking.id)
+            console.log('state at index',state.Bookings[action.booking.id])
+            //if (!state[action.booking.id])
+            let exists=false
+            let index
+            state.Bookings.forEach((el,ind)=>{
+                if (el.id==action.booking.id){
+                    exists=true
+                    index=ind
+                }
+            })
+            if(exists){
+                newState=state
+                newState.Bookings[index]=action.booking
+                return newState
+            }
+            if(!exists){
             newState = state
            newState.Bookings.push(action.booking)
            return newState
+            }
             // return {
 			// 	...state,
 			// 	[action.booking.id]: {

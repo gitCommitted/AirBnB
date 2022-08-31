@@ -1,52 +1,109 @@
 import './MyBookings.css';
 import { useState, useEffect } from 'react';
-import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getBookings } from '../../store/bookings';
-import { getSpots } from '../../store/spots';
+import { getBookings, editBooking, removeBooking } from '../../store/bookings';
+
 const MyBookings = () => {
     const dispatch= useDispatch();
-    //const bookings = useSelector(state => state.bookings.Bookings);
-    
     const bookings = useSelector(state => state.bookings.Bookings);
-    
+    const [editForm, setEditForm]=useState('false')
+    const [showingEditForm, setShowingEditForm]=useState('')
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [errors, setErrors] = useState([]);
     useEffect(() => {
         dispatch(getBookings())
-        console.log('dispatch from form')
-        
+        //console.log('dispatch from form')
       }, []);
-   
-     //bookings = useSelector(state => state.bookings.Bookings);
-   
-//console.log(bookings)
 
-
+const linker = (id) => {
+    return (
+        <button 
+        type="submit"
+        onClick = {(e) => 
+            {
+                editForm === 'true' ? setEditForm('false') : setEditForm('true')
+                setShowingEditForm(id)
+                //console.log(showingEditForm)
+                //console.log(editForm)
+            }
+        }
+        >Edit</button>
+    )
+}
+const handleDelete = (id) => {
+    console.log(id)
+    return  dispatch(removeBooking(id))
+    .then(() => dispatch(getBookings()))
+}
+let bookingId
+const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return  dispatch(editBooking({ bookingId, startDate,endDate })).then(() => setEditForm('false'))
+}
+const showEditForm = (newBookingId) => {
+    bookingId=newBookingId
+    return(
+<form onSubmit={handleSubmit}>
+      <ul>
+        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+      </ul>
+      <label>
+        Start Date
+        <input
+          type="text"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        End Date
+        <input
+          type="text"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          required
+        />
+      </label>
+      <button type="submit">Edit Booking</button>
+      <button 
+      onClick = {(e) => setEditForm('false')}
+      >Cancel</button>
+    </form>
+    )
+}
 
 let deets
-if (bookings ){
+if (bookings.length){
 deets = (
 <>
     <div>You're Booking Details</div>
     <ul>
     {bookings.map((booking)=>(
-        <>
+    <>
      <li>Place: {booking.Spot.name}</li>
      <li>Start Date: {booking.startDate}</li>
      <li>End Date: {booking.endDate}</li>
-     <NavLink to={`/editbookings`}>Edit Booking</NavLink>
+     {editForm === 'true' && showingEditForm === booking.id ? showEditForm(booking.id) : linker(booking.id)}
+     <button 
+      onClick = {(e) => handleDelete(booking.id)}
+      >Delete</button>
      </>
      ))}
- 
-</ul>
-
+    </ul>
   </>
 )
 }
-
+if (!bookings.length){
+    deets=(
+        <div>You've Got No Bookings</div>
+    )
+}
 return (
     <>
     {deets}
-   
     </>
 )
 }

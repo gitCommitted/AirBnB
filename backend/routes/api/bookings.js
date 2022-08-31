@@ -160,10 +160,16 @@ const router = express.Router();
      
     await newBooking.save()
     const retObj = await Booking.findOne({
-     where: {
-       id: newBooking.id
-     }
-   })
+      where: {
+        id: newBooking.id
+      },
+      include: 
+      {
+        model: Spot,
+        attributes: {exclude: ['description','createdAt','updatedAt']}
+      }
+    
+      })
    return res.json(retObj);
   }
   );
