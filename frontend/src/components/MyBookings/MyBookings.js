@@ -76,7 +76,7 @@ const showEditForm = (newBookingId) => {
 }
 
 let deets
-if (bookings.length){
+if (bookings && bookings.length){
 deets = (
 <>
     <div>You're Booking Details</div>
@@ -96,7 +96,7 @@ deets = (
   </>
 )
 }
-if (!bookings.length){
+if (!bookings || !bookings.length){
     deets=(
         <div>You've Got No Bookings</div>
     )
