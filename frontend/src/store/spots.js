@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const LOAD = "spot/LOAD";
 const LOAD_TYPES = "spot/LOAD_TYPES";
 const ADD_ONE = "spot/ADD_ONE";
@@ -35,7 +37,7 @@ export const getSpotDetail = (id) => async (dispatch) => {
 	}
 };
 export const createSpot = (payload) => async (dispatch) => {
-	let response = await fetch(`/api/spots`, {
+	let response = await csrfFetch(`/api/spots`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
@@ -51,7 +53,7 @@ export const createSpot = (payload) => async (dispatch) => {
 };
 
 export const editSpot = (payload) => async (dispatch) => {
-	let response = await fetch(`/api/spots/${payload.id}`, {
+	let response = await csrfFetch(`/api/spots/${payload.spotId}`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json"
@@ -65,14 +67,17 @@ export const editSpot = (payload) => async (dispatch) => {
 		return newGuy
 	}
 };
-
-
-export const getspotTypes = () => async (dispatch) => {
-	const response = await fetch(`/api/spots/types`);
-
+export const removeSpot = (id) => async (dispatch) => {
+  
+	let response = await csrfFetch(`/api/spots/${id}`, {
+		method: "DELETE",
+	
+	});
+	//console.log('making api request: ',payload)
 	if (response.ok) {
-		const types = await response.json();
-		dispatch(loadTypes(types));
+		const newGuy = await response.json();
+		//dispatch(addOneBooking(newGuy));
+		return newGuy
 	}
 };
 
@@ -88,12 +93,35 @@ const spotsReducer = (state = initialState, action) => {
         case ADD_ONE:
             //console.log('action spot: ',action.spot)
             //console.log('state: ',state.spot)
-            return {
-				...state,
-				[action.spot.id]: {
-					...state[action.spot.id],
-					...action.spot,
-				}}
+			console.log('old state: ',state)
+            console.log('state Bookings: ',state.Spots)
+            console.log('book id',action.spot.id)
+            console.log('state at index',state.Spots[action.spot.id])
+            //if (!state[action.booking.id])
+            let exists=false
+            let index
+            state.Spots.forEach((el,ind)=>{
+                if (el.id==action.spot.id){
+                    exists=true
+                    index=ind
+                }
+            })
+            if(exists){
+                newState=state
+                newState.Spots[index]=action.spot
+                return newState
+            }
+            if(!exists){
+            newState = state
+           newState.Spots.push(action.spot)
+           return newState
+            }
+            // return {
+			// 	...state,
+			// 	[action.spot.id]: {
+			// 		...state[action.spot.id],
+			// 		...action.spot,
+			// 	}}
 		default:
 			return state;
 	}
