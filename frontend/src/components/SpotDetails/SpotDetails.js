@@ -2,7 +2,7 @@ import './SpotDetails.css';
 import { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSpotDetail } from '../../store/spots';
+import { getSpotDetail, getSpots } from '../../store/spots';
 
 const SpotDetails = () => {
     const dispatch= useDispatch();
@@ -11,46 +11,55 @@ const SpotDetails = () => {
     
     
     useEffect(() => {
+        dispatch(getSpots())
         dispatch(getSpotDetail(spotId))
       }, []);
     const spot = useSelector(state => state.spots);
-    //console.log("spot: ",spot)
-      let vals
-    console.log(spot)
-    if (spot[spotId]){
-    vals = Object.values(spot[spotId])
-    let keys = Object.keys(spot)
-    console.log('values: ',vals)
-    }
+    console.log("spot.spots: ",spot.Spots)
+      let thisSpot
+    
+if (spot.Spots){
+    spot.Spots.forEach((el)=>{
+        if(el.id==spotId){
+            thisSpot=el
+        }
+    })
+}
+console.log("thisSpot: ",thisSpot)
 let deets
-if (spot[spotId]){
+if (spot.Spots){
     deets = (
     <>
         <div>SpotDetails</div>
         <ul>
         <li>
-        Name: {vals[8]}
+        Name: {thisSpot.name}
     </li>
      <li>
-        Id: {vals[0]}
+        Id: {thisSpot.id}
     </li>
     <li>
-        Address: {vals[2]}
+        Price: {thisSpot.price}
     </li>
     <li>
-        City: {vals[3]}
+        Description: {thisSpot.description}
     </li>
     <li>
-        State: {vals[4]}
+        Address: {thisSpot.address}
     </li>
     <li>
-        Description: {vals[9]}
+        City: {thisSpot.city}
     </li>
     <li>
-        Price: {vals[6]}
+        State: {thisSpot.state}
+    </li>
+   
+    
+    <li>
+        Owner: {thisSpot.ownerId}
     </li>
    </ul>
-   <NavLink to={`/${vals[0]}/bookings`}>Book this spot now!</NavLink>
+   <NavLink to={`/${thisSpot.id}/bookings`}>Book this spot now!</NavLink>
       </>
     )
 }
