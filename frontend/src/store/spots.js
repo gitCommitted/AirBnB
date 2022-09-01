@@ -96,10 +96,18 @@ const spotsReducer = (state = initialState, action) => {
 			console.log('old state: ',state)
             console.log('state Bookings: ',state.Spots)
             console.log('book id',action.spot.id)
-            console.log('state at index',state.Spots[action.spot.id])
+            //console.log('state at index',state.Spots[action.spot.id])
             //if (!state[action.booking.id])
             let exists=false
             let index
+			if (!state.Spots){
+				      return {
+			 	...state,
+			 	[action.spot.id]: {
+			 		...state[action.spot.id],
+			 		...action.spot,
+			 	}}
+			}
             state.Spots.forEach((el,ind)=>{
                 if (el.id==action.spot.id){
                     exists=true
@@ -116,12 +124,7 @@ const spotsReducer = (state = initialState, action) => {
            newState.Spots.push(action.spot)
            return newState
             }
-            // return {
-			// 	...state,
-			// 	[action.spot.id]: {
-			// 		...state[action.spot.id],
-			// 		...action.spot,
-			// 	}}
+       
 		default:
 			return state;
 	}
