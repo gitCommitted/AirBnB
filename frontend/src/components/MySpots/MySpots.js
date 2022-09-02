@@ -79,12 +79,24 @@ let spotId
 const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    return  dispatch(editSpot({ spotId,address,city,state,country,lat,lng,name,description,price })).then(() => setEditForm('false'))
+    return  dispatch(editSpot({ spotId,address,city,state,country,lat,lng,name,description,price }))
+    .then(() => setEditForm('false'))
+    .catch(async (res) => {
+        const data = await res.json();
+        console.log(data)
+        if (data && data.errors) setErrors(Object.values(data.errors));
+      });
 }
 const handleSubmitN = (e) => {
     e.preventDefault();
     setErrors([]);
-    return  dispatch(createSpot({ address,city,state,country,lat,lng,name,description,price })).then(() => setNewForm('false'))
+    return  dispatch(createSpot({ address,city,state,country,lat,lng,name,description,price }))
+    .then(() => setNewForm('false'))
+    .catch(async (res) => {
+        const data = await res.json();
+        console.log(data)
+        if (data && data.errors) setErrors(Object.values(data.errors));
+      });
 }
 const showEditForm = (newSpotId) => {
     spotId=newSpotId

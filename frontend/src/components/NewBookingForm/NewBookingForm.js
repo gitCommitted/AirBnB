@@ -30,19 +30,18 @@ const NewBooking = (id) => {
         e.preventDefault();
         
           setErrors([]);
-          
-            newBook=   dispatch(createBooking({ spotId, userId, startDate,endDate })).then(() => history.push('/mybookings'))
-              if (newBook){
-                    dispatch(getBookings())
+                      //   if (newBook){
+            //         dispatch(getBookings())
                   
-              }
-             console.log(newBook)
-            
-        //     .catch(async (res) => {
-        //       const data = await res.json();
-        //       //console.log(data)
-        //       if (data && data.errors) setErrors(Object.values(data.errors));
-        //     });
+            //   }
+            //  console.log(newBook)
+            return dispatch(createBooking({ spotId, userId, startDate,endDate }))
+            .then(() => history.push('/mybookings'))
+            .catch(async (res) => {
+              const data = await res.json();
+              console.log(data)
+              if (data && data.errors) setErrors(Object.values(data.errors));
+            });
         
         // return setErrors(['Confirm Password field must be the same as the Password field']);
       };
@@ -50,11 +49,12 @@ let deets
 if (spotId){
     deets=(
 <form onSubmit={handleSubmit}>
+   
+      <h3>Book spot: {spotId}</h3>
       <ul>
        
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <h1>Book spot: {spotId}</h1>
+       {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+     </ul>
       <label>
         Start Date
         <input
