@@ -8,11 +8,11 @@ import { createBooking, getBookings } from '../../store/bookings'
 
     
 
-const NewBooking = () => {
+const NewBooking = (id) => {
 
     const dispatch= useDispatch();
     const history = useHistory();
-    let id = useParams();
+    //let id = useParams();
    
     let spotId = Number(id.spotId)
     //console.log(spotId)

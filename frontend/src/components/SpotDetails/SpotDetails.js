@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail, getSpots } from '../../store/spots';
-
+import NewBooking from "../NewBookingForm/NewBookingForm"
 const SpotDetails = () => {
     const dispatch= useDispatch();
 
     const { spotId } = useParams();
-    
+    const [newForm, setNewForm]=useState('false')
+    const [showingNewForm, setShowingNewForm]=useState('')
     
     useEffect(() => {
         dispatch(getSpots())
@@ -25,6 +26,22 @@ if (spot.Spots){
         }
     })
 }
+const linkerN = () => {
+    return (
+        <button 
+        type="submit"
+        onClick = {(e) => 
+            {
+                newForm === 'true' ? setNewForm('false') : setNewForm('true')
+               
+                //console.log(showingEditForm)
+                //console.log(editForm)
+            }
+        }
+        >Book This Spot</button>
+    )
+}
+
 console.log("thisSpot: ",thisSpot)
 let deets
 if (spot.Spots){
@@ -59,7 +76,7 @@ if (spot.Spots){
         Owner: {thisSpot.ownerId}
     </li>
    </ul>
-   <NavLink to={`/${thisSpot.id}/bookings`}>Book this spot now!</NavLink>
+   
       </>
     )
 }
@@ -67,7 +84,13 @@ if (spot.Spots){
     return (
         <>
         {deets}
-       
+        {newForm === 'true' ? (
+            <>
+            <NewBooking spotId={spotId}/>
+            <button onClick = {(e) => setNewForm('false')}>Cancel</button>
+            </>
+        ) : linkerN()}
+         
         </>
     )
 }
