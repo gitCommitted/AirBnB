@@ -26,15 +26,7 @@ const MySpots = () => {
     useEffect(() => {
         dispatch(getSpots());
         //console.log('dispatch from form')
-        setAddress('');
-        setCity('');
-        setState('');
-        setCountry('');
-        setLat('');
-        setLng('');
-        setName('');
-        setDescription('');
-        setPrice('')
+        
       }, []);
 console.log(spots1)
 
@@ -55,6 +47,15 @@ const linkerE = (id) => {
         type="submit"
         onClick = {(e) => 
             {
+                setAddress('');
+                setCity('');
+                setState('');
+                setCountry('');
+                setLat('');
+                setLng('');
+                setName('');
+                setDescription('');
+                setPrice('');
                 editForm === 'true' ? setEditForm('false') : setEditForm('true')
                 setShowingEditForm(id)
                 //console.log(showingEditForm)
