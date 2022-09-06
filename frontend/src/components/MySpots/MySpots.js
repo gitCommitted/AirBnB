@@ -26,6 +26,15 @@ const MySpots = () => {
     useEffect(() => {
         dispatch(getSpots())
         //console.log('dispatch from form')
+        setAddress(''),
+        setCity(''),
+        setState(''),
+        setCountry(''),
+        setLat(''),
+        setLng(''),
+        setName(''),
+        setDescription(''),
+        setPrice('')
       }, []);
 console.log(spots1)
 
