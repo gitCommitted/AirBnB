@@ -24,7 +24,7 @@ const MySpots = () => {
     const [price, setPrice] = useState("");
     const [errors, setErrors] = useState([]);
     useEffect(() => {
-        dispatch(getSpots())
+        dispatch(getSpots()),
         //console.log('dispatch from form')
         setAddress(''),
         setCity(''),
