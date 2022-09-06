@@ -24,16 +24,16 @@ const MySpots = () => {
     const [price, setPrice] = useState("");
     const [errors, setErrors] = useState([]);
     useEffect(() => {
-        dispatch(getSpots()),
+        dispatch(getSpots());
         //console.log('dispatch from form')
-        setAddress(''),
-        setCity(''),
-        setState(''),
-        setCountry(''),
-        setLat(''),
-        setLng(''),
-        setName(''),
-        setDescription(''),
+        setAddress('');
+        setCity('');
+        setState('');
+        setCountry('');
+        setLat('');
+        setLng('');
+        setName('');
+        setDescription('');
         setPrice('')
       }, []);
 console.log(spots1)
