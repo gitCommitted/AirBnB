@@ -27,7 +27,10 @@
     height: 30px;
     font-size: 20px;
   }
-  
+  .nav__buttons:hover{
+    color: white;
+    background-color: rgb(50, 53, 53);
+  }
   
   .profile-dropdown{
       display: inline-block

@@ -90,7 +90,7 @@ deets = (
     <div className='title'>Your Booking Details: </div>
     <div  className='theGrid'>
     {bookings.map((booking)=>(
-    <ul>
+    <ul className='box'>
      <li>Place: {booking.Spot.name}</li>
      <li>Start Date: {booking.startDate}</li>
      <li>End Date: {booking.endDate}</li>

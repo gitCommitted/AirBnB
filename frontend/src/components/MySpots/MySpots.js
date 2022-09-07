@@ -318,12 +318,12 @@ if (spots && spots.length){
 deets = (
 <>
     <div className='create_spot'>You're Spot Details:</div>
-    <div  className='theGrid'>
+    <div  className='theGridMySpots'>
     
     {spots.map((spot)=>(
         
         
-          <ul>
+          <ul className='boxer'>
      <li>Name: {spot.name}</li>
      <li>Description: {spot.description}</li>
      <li>Price: {spot.price}</li>

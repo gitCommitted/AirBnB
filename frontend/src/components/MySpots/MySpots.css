@@ -22,7 +22,7 @@ form {
 input {
     margin-left: 10px;
 }
-.theGrid{
+.theGridMySpots{
     list-style-type: none;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; 
@@ -32,6 +32,7 @@ input {
     padding-left: 50px;
     justify-items: center;
     grid-row-gap: 10%;
+    grid-column-gap: 5%;
 }
 .card{
     display: flex;
@@ -50,4 +51,9 @@ input {
     text-align: center;
     font-weight: 300;
     font-size: 22px;
+}
+.boxer{
+    padding: 20px;
+    border: 1px solid grey;
+    box-shadow: 10px 10px 5px grey;
 }
