@@ -1,0 +1,35 @@
+form  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    
+  }
+  button {
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+  }
+  label {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+input {
+    margin-left: 10px;
+}
+ul {
+    list-style-type: none;
+}
+.theGridD{
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto;
+    padding-top: 20px;
+    padding-right: 50px;
+    padding-left: 50px;
+    justify-items: center;
+   
+}

@@ -68,7 +68,9 @@ const linkerE = (id) => {
 }
 const linkerN = () => {
     return (
+      <div className='create_spot'>
         <button 
+        
         type="submit"
         onClick = {(e) => 
             {
@@ -89,6 +91,7 @@ const linkerN = () => {
             }
         }
         >Create New Spot</button>
+        </div>
     )
 }
 const handleDelete = (id) => {
@@ -314,11 +317,13 @@ let deets
 if (spots && spots.length){
 deets = (
 <>
-    <div>You're Spot Details:</div>
-    <ul>
+    <div className='create_spot'>You're Spot Details:</div>
+    <div  className='theGrid'>
+    
     {spots.map((spot)=>(
         
-    <>
+        
+          <ul>
      <li>Name: {spot.name}</li>
      <li>Description: {spot.description}</li>
      <li>Price: {spot.price}</li>
@@ -330,18 +335,23 @@ deets = (
      <li>Longitude: {spot.lng}</li>
      
      {editForm === 'true' && showingEditForm === spot.id ? showEditForm(spot.id) : linkerE(spot.id)}
-     <button 
+     {editForm === 'true' && showingEditForm === spot.id ? null : (
+      <button 
       onClick = {(e) => handleDelete(spot.id)}
       >Delete</button>
-     </>
+     )}
+     
+      </ul>
+     
      ))}
-    </ul>
+    </div>
+    
   </>
 )
 }
 if (!spots || !spots.length){
     deets=(
-        <div>You've Got No Spots</div>
+        <div className='create_spot'>You've Got No Spots</div>
     )
 }
 return (

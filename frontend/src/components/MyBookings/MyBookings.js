@@ -87,26 +87,29 @@ let deets
 if (bookings && bookings.length){
 deets = (
 <>
-    <div>You're Booking Details</div>
-    <ul>
+    <div className='title'>You're Booking Details: </div>
+    <div  className='theGrid'>
     {bookings.map((booking)=>(
-    <>
+    <ul>
      <li>Place: {booking.Spot.name}</li>
      <li>Start Date: {booking.startDate}</li>
      <li>End Date: {booking.endDate}</li>
      {editForm === 'true' && showingEditForm === booking.id ? showEditForm(booking.id) : linker(booking.id)}
-     <button 
+     {editForm === 'true' && showingEditForm === booking.id ? null : (
+      <button 
       onClick = {(e) => handleDelete(booking.id)}
       >Delete</button>
-     </>
+     )}
+     
+     </ul>
      ))}
-    </ul>
+   </div>
   </>
 )
 }
 if (!bookings || !bookings.length){
     deets=(
-        <div>You've Got No Bookings</div>
+        <div className='title'>You've Got No Bookings</div>
     )
 }
 return (

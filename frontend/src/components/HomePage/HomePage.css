@@ -7,9 +7,10 @@ body{
       list-style-type: none;
       padding-inline-start: 0pt;
   }
-  .title{
+  .title_home{
       text-align: center;
       font-weight: 300;
+      font-size: 22px;
   }
   .theGrid{
     list-style-type: none;

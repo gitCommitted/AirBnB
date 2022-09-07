@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail, getSpots } from '../../store/spots';
 import { getBookings, getBookingDetail } from '../../store/bookings';
 import NewBooking from "../NewBookingForm/NewBookingForm"
+import placeholder from "../HomePage/placeholdr.png"
 const SpotDetails = () => {
     const dispatch= useDispatch();
 
@@ -65,8 +66,10 @@ let deets
 if (spot.Spots){
     deets = (
     <>
-        <div>SpotDetails</div>
         <ul>
+        <li>
+        <img src={placeholder} alt="placeholder image"/>
+        </li>
         <li>
         Name: {thisSpot.name}
     </li>
@@ -105,16 +108,13 @@ if (spot.Spots){
 
     return (
         <>
+        <div className='title'>Spot Details:</div>
+        <div className='theGridD'>
         {deets}
-        {newForm === 'true' ? (
-            <>
-            <NewBooking spotId={spotId}/>
-            <button onClick = {(e) => setNewForm('false')}>Cancel</button>
-            </>
-        ) : linkerN()}
+       
         {bookings && spot.Spots && bookings.length ? (
-            <>
-    <div>Following Dates Are Not available:</div>
+            <div>
+    <div>The Following Dates Are Not available:</div>
     <ul>
     {bookings.map((booking)=>(
     <>
@@ -124,13 +124,20 @@ if (spot.Spots){
      </>
      ))}
     </ul>
-  </>) : (
-      <>Not Booked, All Dates Available!</>
+  </div>) : (
+      <div>Not Booked, All Dates Available!</div>
   )}
+   {newForm === 'true' ? (
+            <>
+            <NewBooking spotId={spotId}/>
+            <button onClick = {(e) => setNewForm('false')}>Cancel</button>
+            </>
+        ) : linkerN()}
 
 
     
          
+        </div>
         </>
     )
 }
