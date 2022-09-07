@@ -56,6 +56,7 @@ const linkerE = (id) => {
                 setName('');
                 setDescription('');
                 setPrice('');
+                setErrors([]);
                 editForm === 'true' ? setEditForm('false') : setEditForm('true')
                 setShowingEditForm(id)
                 //console.log(showingEditForm)
@@ -80,13 +81,14 @@ const linkerN = () => {
                 setName('');
                 setDescription('');
                 setPrice('');
+                setErrors([]);
                 newForm === 'true' ? setNewForm('false') : setNewForm('true')
                
                 //console.log(showingEditForm)
                 //console.log(editForm)
             }
         }
-        >Create This Spot</button>
+        >Create New Spot</button>
     )
 }
 const handleDelete = (id) => {
@@ -300,7 +302,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <button type="submit">Create New Spot</button>
+      <button type="submit">Create This Spot</button>
       <button 
       onClick = {(e) => setNewForm('false')}
       >Cancel</button>
@@ -312,7 +314,7 @@ let deets
 if (spots && spots.length){
 deets = (
 <>
-    <div>You're spot Details</div>
+    <div>You're Spot Details:</div>
     <ul>
     {spots.map((spot)=>(
         
@@ -339,13 +341,14 @@ deets = (
 }
 if (!spots || !spots.length){
     deets=(
-        <div>You've Got No spots</div>
+        <div>You've Got No Spots</div>
     )
 }
 return (
     <>
-    {deets}
+   
     {newForm === 'true' ? showNewForm() : linkerN()}
+    {deets}
     </>
 )
 }

@@ -24,6 +24,9 @@ const linker = (id) => {
             {
                 editForm === 'true' ? setEditForm('false') : setEditForm('true')
                 setShowingEditForm(id)
+                setStartDate('')
+                setEndDate('')
+                setErrors([])
                 //console.log(showingEditForm)
                 //console.log(editForm)
             }
@@ -41,6 +44,11 @@ const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return  dispatch(editBooking({ bookingId, startDate,endDate })).then(() => setEditForm('false'))
+    .catch(async (res) => {
+        const data = await res.json();
+        console.log(data)
+        if (data && data.errors) setErrors(Object.values(data.errors));
+      });
 }
 const showEditForm = (newBookingId) => {
     bookingId=newBookingId
