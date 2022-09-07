@@ -1,0 +1,56 @@
+
+
+.nav__group{
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    padding: 0;
+    border-bottom: 1px solid grey;
+  }
+  
+  .nav__buttons{
+    display: inline-flex;
+    border-radius: 3px;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    align-items: right;
+    text-align: center;
+    background-color: hsla(0,0%,100%,.3);
+    box-shadow: none;
+    color: black;
+    line-height: 32px;
+    margin: 0 0 0 0;
+    transition: .1s ease;
+    white-space: nowrap;
+    padding: 20px 40px 20px 40px;
+    height: 30px;
+    font-size: 20px;
+  }
+  
+  
+  .profile-dropdown{
+      display: inline-block
+  }
+
+  .logo {
+    opacity: 0.8;
+    display: inline block;
+    text-align: left;
+    left: 5%;
+    font-size: 20pt;
+    position: absolute;
+    top: 5px;
+    font-weight: bolder;
+  }
+  
+ 
+  
+  body{
+    font-family: 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    margin: 0px;
+  }
+
+ 
+  

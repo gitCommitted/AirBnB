@@ -11,24 +11,25 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <>
-      <NavLink to="/myspots">My Spots</NavLink>
-      <NavLink to="/mybookings">My Bookings</NavLink>
-      <ProfileButton user={sessionUser} />
+      <NavLink to="/myspots" className='nav__buttons'>My Spots</NavLink>
+      <NavLink to="/mybookings"className='nav__buttons'>My Bookings</NavLink>
+      <ProfileButton user={sessionUser}className='nav__buttons' />
       </>
     );
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/login" className='nav__buttons'>Log In</NavLink>
+        <NavLink to="/signup" className='nav__buttons'>Sign Up</NavLink>
       </>
     );
   }
 
   return (
-    <ul>
+    <ul className='nav__group'>
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <p className='logo'>NOT AirBnB</p>
+        <NavLink exact to="/" className='nav__buttons'>Home</NavLink>
         {isLoaded && sessionLinks}
       </li>
     </ul>
