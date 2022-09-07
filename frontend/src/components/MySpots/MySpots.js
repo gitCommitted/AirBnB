@@ -71,13 +71,22 @@ const linkerN = () => {
         type="submit"
         onClick = {(e) => 
             {
+                setAddress('');
+                setCity('');
+                setState('');
+                setCountry('');
+                setLat('');
+                setLng('');
+                setName('');
+                setDescription('');
+                setPrice('');
                 newForm === 'true' ? setNewForm('false') : setNewForm('true')
                
                 //console.log(showingEditForm)
                 //console.log(editForm)
             }
         }
-        >Create New Spot</button>
+        >Create This Spot</button>
     )
 }
 const handleDelete = (id) => {

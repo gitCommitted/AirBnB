@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD = "bookings/LOAD";
 const LOAD_TYPES = "bookings/LOAD_TYPES";
 const ADD_ONE = "bookings/ADD_ONE";
+const ADD_THAT = "bookings/ADD_THAT"
 
 const load = (list) => ({
 	type: LOAD,
@@ -18,6 +19,10 @@ const addOneBooking = (booking) => ({
 	type: ADD_ONE,
 	booking,
 });
+const addOneThat = (booking) => ({
+	type: ADD_THAT,
+	booking,
+});
 
 export const getBookings = () => async (dispatch) => {
 	const response = await fetch(`/api/me/bookings`);
@@ -28,12 +33,12 @@ export const getBookings = () => async (dispatch) => {
 	}
 };
 
-export const getBookingDetail = (id) => async (dispatch) => {
-	const response = await fetch(`/api/spots/${id}`);
+export const getBookingDetail = (spotId) => async (dispatch) => {
+	const response = await fetch(`/api/spots/${spotId}/bookings`);
 
 	if (response.ok) {
 		const booking = await response.json();
-		dispatch(addOneBooking(booking));
+		dispatch(addOneThat(booking));
 	}
 };
 export const createBooking = (payload) => async (dispatch) => {
@@ -98,11 +103,20 @@ const bookingsReducer = (state = initialState, action) => {
             //console.log('action spot: ',action.spot)
             console.log('old state: ',state)
             console.log('state Bookings: ',state.Bookings)
-            console.log('book id',action.booking.id)
-            console.log('state at index',state.Bookings[action.booking.id])
+            console.log('book id',action.booking)
+            //console.log('state at index',state.Bookings[action.booking.id])
             //if (!state[action.booking.id])
             let exists=false
             let index
+			
+			if (!state.Bookings){
+				return {
+		   ...state,
+		   [action.booking.id]: {
+			   ...state[action.booking.id],
+			   ...action.booking,
+		   }}
+	  }
             state.Bookings.forEach((el,ind)=>{
                 if (el.id==action.booking.id){
                     exists=true
@@ -125,6 +139,14 @@ const bookingsReducer = (state = initialState, action) => {
 			// 		...state[action.booking.id],
 			// 		...action.booking,
 			// 	}}
+			case ADD_THAT:
+			console.log(action.booking)
+			return {
+				...state,
+				['this']: {
+					...action.booking
+				}
+			}
 		default:
 			return state;
 	}
