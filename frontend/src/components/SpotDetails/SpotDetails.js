@@ -45,10 +45,18 @@ if (spot.Spots){
         }
     })
 }
+let displayed=false
+if (thisSpot){
+  if ( thisSpot.ownerId===userId){
+    displayed=true
+  }
+}
+console.log("display: ",displayed)
 const linkerN = () => {
     return (
         <button 
         type="submit"
+        disabled={displayed}
         onClick = {(e) => 
             {
                 newForm === 'true' ? setNewForm('false') : setNewForm('true')
@@ -114,7 +122,7 @@ if (spot.Spots){
        
         {bookings && spot.Spots && bookings.length ? (
             <div>
-    <div>The Following Dates Are Not available:</div>
+    <div>The Following Dates Are Not Available:</div>
     <ul>
     {bookings.map((booking)=>(
     <>

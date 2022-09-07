@@ -87,7 +87,7 @@ let deets
 if (bookings && bookings.length){
 deets = (
 <>
-    <div className='title'>You're Booking Details: </div>
+    <div className='title'>Your Booking Details: </div>
     <div  className='theGrid'>
     {bookings.map((booking)=>(
     <ul>
