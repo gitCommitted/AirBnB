@@ -4,10 +4,14 @@ import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail, getSpots } from '../../store/spots';
 import { getBookings, getBookingDetail } from '../../store/bookings';
-import NewBooking from "../NewBookingForm/NewBookingForm"
+//import NewBooking from "../NewBookingForm/NewBookingForm"
+import NewBookModal from '../NewBookingForm/NewBookMode';
+import { Modal } from '../../context/Modal';
 import placeholder from "../HomePage/placeholdr.png"
 const SpotDetails = () => {
     const dispatch= useDispatch();
+
+    const [showModal, setShowModal] = useState(false);
 
     const { spotId } = useParams();
     const [newForm, setNewForm]=useState('false')
@@ -54,18 +58,30 @@ if (thisSpot){
 console.log("display: ",displayed)
 const linkerN = () => {
     return (
+        <>
         <button 
         type="submit"
         disabled={displayed}
         onClick = {(e) => 
             {
-                newForm === 'true' ? setNewForm('false') : setNewForm('true')
+                //newForm === 'true' ? setNewForm('false') : setNewForm('true')
                
                 //console.log(showingEditForm)
                 //console.log(editForm)
+
+                setShowModal(true)
             }
         }
         >Book This Spot</button>
+        {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <NewBookModal spotId={spotId}/>
+        </Modal>
+      )}
+
+
+
+        </>
     )
 }
 
@@ -135,12 +151,13 @@ if (spot.Spots){
   </div>) : (
       <div>Not Booked, All Dates Available!</div>
   )}
-   {newForm === 'true' ? (
+   {/* {newForm === 'true' ? (
             <>
             <NewBooking spotId={spotId}/>
             <button onClick = {(e) => setNewForm('false')}>Cancel</button>
             </>
-        ) : linkerN()}
+        ) : linkerN()} */}
+        {linkerN()}
 
 
     
