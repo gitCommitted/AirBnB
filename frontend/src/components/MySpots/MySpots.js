@@ -3,6 +3,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpots, editSpot, removeSpot, createSpot } from '../../store/spots';
+import { Modal } from '../../context/Modal';
 const MySpots = () => {
     const dispatch= useDispatch();
     const spots1 = useSelector(state => state.spots.Spots);
@@ -11,6 +12,12 @@ const MySpots = () => {
     const [showingEditForm, setShowingEditForm]=useState('')
     const [newForm, setNewForm]=useState('false')
     const [showingNewForm, setShowingNewForm]=useState('')
+
+    const [showModal, setShowModal] = useState(false);
+    const [showModalN, setShowModalN] = useState(false);
+
+
+
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [address, setAddress] = useState("");
@@ -41,8 +48,31 @@ spots.push(el)
 })
 }
 console.log(spots)
+const editMode = (id) => {
+  return (
+    <>
+    {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            {showEditForm(id)}
+          </Modal>
+        )}
+    </>
+  )
+}
+// const newMode = (id) => {
+//   return (
+//     <>
+//     {showModal && (
+//           <Modal onClose={() => setShowModal(false)}>
+//             {showEditForm(id)}
+//           </Modal>
+//         )}
+//     </>
+//   )
+// }
 const linkerE = (id) => {
     return (
+      <>
         <button 
         type="submit"
         onClick = {(e) => 
@@ -57,13 +87,17 @@ const linkerE = (id) => {
                 setDescription('');
                 setPrice('');
                 setErrors([]);
-                editForm === 'true' ? setEditForm('false') : setEditForm('true')
+                //editForm === 'true' ? setEditForm('false') : setEditForm('true')
                 setShowingEditForm(id)
                 //console.log(showingEditForm)
                 //console.log(editForm)
+                setShowModal(true)
+                console.log("modal spot id: ",id)
             }
         }
         >Edit</button>
+        {showingEditForm===id ? editMode(id) : null}
+        </>
     )
 }
 const linkerN = () => {
@@ -84,13 +118,19 @@ const linkerN = () => {
                 setDescription('');
                 setPrice('');
                 setErrors([]);
-                newForm === 'true' ? setNewForm('false') : setNewForm('true')
+                //newForm === 'true' ? setNewForm('false') : setNewForm('true')
                
                 //console.log(showingEditForm)
                 //console.log(editForm)
+                setShowModalN(true)
             }
         }
         >Create New Spot</button>
+        {showModalN && (
+          <Modal onClose={() => setShowModalN(false)}>
+            {showNewForm()}
+          </Modal>
+        )}
         </div>
     )
 }
@@ -104,7 +144,8 @@ const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return  dispatch(editSpot({ spotId,address,city,state,country,lat,lng,name,description,price }))
-    .then(() => setEditForm('false'))
+    // .then(() => setEditForm('false'))
+    .then(()=>setShowModal(false))
     .catch(async (res) => {
         const data = await res.json();
         console.log(data)
@@ -115,7 +156,7 @@ const handleSubmitN = (e) => {
     e.preventDefault();
     setErrors([]);
     return  dispatch(createSpot({ address,city,state,country,lat,lng,name,description,price }))
-    .then(() => setNewForm('false'))
+    .then(() => setShowModalN(false))
     .catch(async (res) => {
         const data = await res.json();
         console.log(data)
@@ -211,9 +252,9 @@ const showEditForm = (newSpotId) => {
         />
       </label>
       <button type="submit">Edit spot</button>
-      <button 
+      {/* <button 
       onClick = {(e) => setEditForm('false')}
-      >Cancel</button>
+      >Cancel</button> */}
     </form>
     )
 }
@@ -306,9 +347,9 @@ const showNewForm = (newSpotId) => {
         />
       </label>
       <button type="submit">Create This Spot</button>
-      <button 
+      {/* <button 
       onClick = {(e) => setNewForm('false')}
-      >Cancel</button>
+      >Cancel</button> */}
     </form>
     )
 }
@@ -333,8 +374,8 @@ deets = (
      <li>Country: {spot.country}</li>
      <li>Latitude: {spot.lat}</li>
      <li>Longitude: {spot.lng}</li>
-     
-     {editForm === 'true' && showingEditForm === spot.id ? showEditForm(spot.id) : linkerE(spot.id)}
+     {linkerE(spot.id)}
+     {/* {editForm === 'true' && showingEditForm === spot.id ? showEditForm(spot.id) : linkerE(spot.id)} */}
      {editForm === 'true' && showingEditForm === spot.id ? null : (
       <button 
       onClick = {(e) => handleDelete(spot.id)}
@@ -356,8 +397,8 @@ if (!spots || !spots.length){
 }
 return (
     <>
-   
-    {newForm === 'true' ? showNewForm() : linkerN()}
+    {linkerN()}
+    {/* {newForm === 'true' ? showNewForm() : linkerN()} */}
     {deets}
     </>
 )

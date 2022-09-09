@@ -2,7 +2,7 @@ import './MyBookings.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBookings, editBooking, removeBooking } from '../../store/bookings';
-
+import { Modal } from '../../context/Modal';
 const MyBookings = () => {
     const dispatch= useDispatch();
     const bookings = useSelector(state => state.bookings.Bookings);
@@ -11,27 +11,42 @@ const MyBookings = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [errors, setErrors] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     useEffect(() => {
         dispatch(getBookings())
         //console.log('dispatch from form')
       }, [dispatch]);
-   
+      const editMode = (id) => {
+        return (
+          <>
+          {showModal && (
+                <Modal onClose={() => setShowModal(false)}>
+                  {showEditForm(id)}
+                </Modal>
+              )}
+          </>
+        )
+      }  
 const linker = (id) => {
     return (
+      <>
         <button 
         type="submit"
         onClick = {(e) => 
             {
-                editForm === 'true' ? setEditForm('false') : setEditForm('true')
+                //editForm === 'true' ? setEditForm('false') : setEditForm('true')
                 setShowingEditForm(id)
                 setStartDate('')
                 setEndDate('')
                 setErrors([])
                 //console.log(showingEditForm)
                 //console.log(editForm)
+                setShowModal(true)
             }
         }
         >Edit</button>
+        {showingEditForm===id ? editMode(id) : null}
+        </>
     )
 }
 const handleDelete = (id) => {
@@ -43,7 +58,7 @@ let bookingId
 const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    return  dispatch(editBooking({ bookingId, startDate,endDate })).then(() => setEditForm('false'))
+    return  dispatch(editBooking({ bookingId, startDate,endDate })).then(() => setShowModal(false))
     .catch(async (res) => {
         const data = await res.json();
         console.log(data)
@@ -76,9 +91,9 @@ const showEditForm = (newBookingId) => {
         />
       </label>
       <button type="submit">Edit Booking</button>
-      <button 
+      {/* <button 
       onClick = {(e) => setEditForm('false')}
-      >Cancel</button>
+      >Cancel</button> */}
     </form>
     )
 }
@@ -94,7 +109,8 @@ deets = (
      <li>Place: {booking.Spot.name}</li>
      <li>Start Date: {booking.startDate}</li>
      <li>End Date: {booking.endDate}</li>
-     {editForm === 'true' && showingEditForm === booking.id ? showEditForm(booking.id) : linker(booking.id)}
+     {linker(booking.id)}
+     {/* {editForm === 'true' && showingEditForm === booking.id ? showEditForm(booking.id) : linker(booking.id)} */}
      {editForm === 'true' && showingEditForm === booking.id ? null : (
       <button 
       onClick = {(e) => handleDelete(booking.id)}
