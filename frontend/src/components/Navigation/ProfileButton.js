@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import {NavLink, useHistory} from 'react-router-dom'
+import {Link, NavLink, useHistory} from 'react-router-dom'
+import { Modal } from '../../context/Modal';
 import './Navigation.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const history = useHistory();
+
+  const [showModal, setShowModal] = useState(false);
+
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -32,20 +37,54 @@ function ProfileButton({ user }) {
     .then(()=>history.push('/'))
   };
 
+const accounts = () => {
+  return(
+    <ul className="profile-dropdown">
+    <li>{user.userName}</li>
+    <li>{user.email}</li>
+   <li>
+   <a target="_blank" href="https://github.com/gitCommitted/AirBnB-Clone">About</a>
+   </li>
+    <li>
+      <button onClick={logout}>Log Out</button>
+    </li>
+  </ul>
+  )
+}
+
+
   return (
     <>
-      <a onClick={openMenu} className='nav__buttons'>
+      <a className='nav__buttons'
+      onClick = {(e) => 
+        {
+            setShowModal(true)
+        }
+    }
+      
+      >
         My Account
       </a>
-      {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.userName}</li>
-          <li>{user.email}</li>
-         
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+      {/* <a onClick={openMenu} className='nav__buttons'>
+        My Account
+      </a> */}
+      {/* {showMenu && ( */}
+        {/* // <ul className="profile-dropdown">
+        //   <li>{user.userName}</li>
+        //   <li>{user.email}</li>
+        //  <li>
+        //  <a target="_blank" href="https://github.com/gitCommitted/AirBnB-Clone">About</a>
+        //  </li>
+        //   <li>
+        //     <button onClick={logout}>Log Out</button>
+        //   </li>
+        // </ul>
+      
+    //)} */}
+    {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          {accounts()}
+        </Modal>
       )}
     </>
   );
