@@ -70,33 +70,33 @@ const editMode = (id) => {
 //     </>
 //   )
 // }
-const linkerE = (id) => {
+const linkerE = (spot) => {
     return (
       <>
         <button 
         type="submit"
         onClick = {(e) => 
             {
-                setAddress('');
-                setCity('');
-                setState('');
-                setCountry('');
-                setLat('');
-                setLng('');
-                setName('');
-                setDescription('');
-                setPrice('');
+                setAddress(spot.address);
+                setCity(spot.city);
+                setState(spot.state);
+                setCountry(spot.country);
+                setLat(spot.lat);
+                setLng(spot.lng);
+                setName(spot.name);
+                setDescription(spot.description);
+                setPrice(spot.price);
                 setErrors([]);
                 //editForm === 'true' ? setEditForm('false') : setEditForm('true')
-                setShowingEditForm(id)
+                setShowingEditForm(spot.id)
                 //console.log(showingEditForm)
                 //console.log(editForm)
                 setShowModal(true)
-                console.log("modal spot id: ",id)
+                console.log("modal spot id: ",spot.id)
             }
         }
         >Edit</button>
-        {showingEditForm===id ? editMode(id) : null}
+        {showingEditForm===spot.id ? editMode(spot.id) : null}
         </>
     )
 }
@@ -167,6 +167,7 @@ const showEditForm = (newSpotId) => {
     spotId=newSpotId
     return(
 <form onSubmit={handleSubmit}>
+      <h3>Edit Spot</h3>  
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -262,6 +263,7 @@ const showNewForm = (newSpotId) => {
     spotId=newSpotId
     return(
 <form onSubmit={handleSubmitN}>
+      <h3>Create A New Spot</h3>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -269,6 +271,7 @@ const showNewForm = (newSpotId) => {
         Street Address
         <input
           type="text"
+          placeholder='street number and name'
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
@@ -278,6 +281,7 @@ const showNewForm = (newSpotId) => {
         City
         <input
           type="text"
+          placeholder='city name'
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
@@ -287,6 +291,7 @@ const showNewForm = (newSpotId) => {
         State
         <input
           type="text"
+          placeholder='state'
           value={state}
           onChange={(e) => setState(e.target.value)}
           required
@@ -296,6 +301,7 @@ const showNewForm = (newSpotId) => {
         Country
         <input
           type="text"
+          placeholder='country name'
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           required
@@ -305,6 +311,7 @@ const showNewForm = (newSpotId) => {
         Latitude
         <input
           type="text"
+          placeholder='between -90 and 90'
           value={lat}
           onChange={(e) => setLat(e.target.value)}
           required
@@ -314,6 +321,7 @@ const showNewForm = (newSpotId) => {
         Longitude
         <input
           type="text"
+          placeholder='between -180 and 180'
           value={lng}
           onChange={(e) => setLng(e.target.value)}
           required
@@ -324,6 +332,7 @@ const showNewForm = (newSpotId) => {
         <input
           type="text"
           value={name}
+          placeholder='name for spot'
           onChange={(e) => setName(e.target.value)}
           required
         />
@@ -333,6 +342,7 @@ const showNewForm = (newSpotId) => {
         <input
           type="text"
           value={description}
+          placeholder='describe spot'
           onChange={(e) => setDescription(e.target.value)}
           required
         />
@@ -342,6 +352,7 @@ const showNewForm = (newSpotId) => {
         <input
           type="text"
           value={price}
+          placeholder='enter price'
           onChange={(e) => setPrice(e.target.value)}
           required
         />
@@ -374,7 +385,7 @@ deets = (
      <li>Country: {spot.country}</li>
      <li>Latitude: {spot.lat}</li>
      <li>Longitude: {spot.lng}</li>
-     {linkerE(spot.id)}
+     {linkerE(spot)}
      {/* {editForm === 'true' && showingEditForm === spot.id ? showEditForm(spot.id) : linkerE(spot.id)} */}
      {editForm === 'true' && showingEditForm === spot.id ? null : (
       <button 

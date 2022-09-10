@@ -40,10 +40,12 @@ function ProfileButton({ user }) {
 const accounts = () => {
   return(
     <ul className="profile-dropdown">
+    <li>Your Account:</li>
     <li>{user.userName}</li>
     <li>{user.email}</li>
+    <li><br/></li>
    <li>
-   <a target="_blank" href="https://github.com/gitCommitted/AirBnB-Clone">About</a>
+   <a target="_blank" href="https://github.com/gitCommitted/AirBnB-Clone">About This App</a>
    </li>
     <li>
       <button onClick={logout}>Log Out</button>

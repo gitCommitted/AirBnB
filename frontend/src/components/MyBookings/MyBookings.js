@@ -27,7 +27,7 @@ const MyBookings = () => {
           </>
         )
       }  
-const linker = (id) => {
+const linker = (booking) => {
     return (
       <>
         <button 
@@ -35,9 +35,9 @@ const linker = (id) => {
         onClick = {(e) => 
             {
                 //editForm === 'true' ? setEditForm('false') : setEditForm('true')
-                setShowingEditForm(id)
-                setStartDate('')
-                setEndDate('')
+                setShowingEditForm(booking.id)
+                setStartDate(booking.startDate)
+                setEndDate(booking.endDate)
                 setErrors([])
                 //console.log(showingEditForm)
                 //console.log(editForm)
@@ -45,7 +45,7 @@ const linker = (id) => {
             }
         }
         >Edit</button>
-        {showingEditForm===id ? editMode(id) : null}
+        {showingEditForm===booking.id ? editMode(booking.id) : null}
         </>
     )
 }
@@ -69,6 +69,7 @@ const showEditForm = (newBookingId) => {
     bookingId=newBookingId
     return(
 <form onSubmit={handleSubmit}>
+      <h3>Edit Booking</h3>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -109,7 +110,7 @@ deets = (
      <li>Place: {booking.Spot.name}</li>
      <li>Start Date: {booking.startDate}</li>
      <li>End Date: {booking.endDate}</li>
-     {linker(booking.id)}
+     {linker(booking)}
      {/* {editForm === 'true' && showingEditForm === booking.id ? showEditForm(booking.id) : linker(booking.id)} */}
      {editForm === 'true' && showingEditForm === booking.id ? null : (
       <button 

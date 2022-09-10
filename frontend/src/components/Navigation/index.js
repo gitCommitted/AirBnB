@@ -21,6 +21,7 @@ function Navigation({ isLoaded }){
       <>
         <NavLink to="/login" className='nav__buttons'>Log In</NavLink>
         <NavLink to="/signup" className='nav__buttons'>Sign Up</NavLink>
+        <a className='nav__buttons' target="_blank" href="https://github.com/gitCommitted/AirBnB-Clone">About</a>
       </>
     );
   }

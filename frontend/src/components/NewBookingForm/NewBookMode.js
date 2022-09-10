@@ -60,6 +60,7 @@ if (spotId){
         <input
           type="text"
           value={startDate}
+          placeholder='DD/MM/YYY'
           onChange={(e) => setStartDate(e.target.value)}
           required
         />
@@ -69,6 +70,7 @@ if (spotId){
         <input
           type="text"
           value={endDate}
+          placeholder='DD/MM/YYY'
           onChange={(e) => setEndDate(e.target.value)}
           required
         />
