@@ -18,7 +18,7 @@
     text-align: center;
     /* background-color: hsla(0,0%,100%,.3); */
     box-shadow: none;
-    color: black;
+    color:black;
     line-height: 32px;
     margin: 0 0 0 0;
     transition: .1s ease;
@@ -29,8 +29,9 @@
     
   }
   .nav__buttons:hover{
-    color: white;
+    color: rgb(89, 140, 241);
     background-color:black; 
+    
   }
   
   .profile-dropdown{
