@@ -5,7 +5,7 @@
     justify-content: flex-end;
     list-style-type: none;
     padding: 0;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid black;
   }
   
   .nav__buttons{
@@ -18,7 +18,7 @@
     text-align: center;
     /* background-color: hsla(0,0%,100%,.3); */
     box-shadow: none;
-    color: #505050;
+    color: black;
     line-height: 32px;
     margin: 0 0 0 0;
     transition: .1s ease;
@@ -30,7 +30,7 @@
   }
   .nav__buttons:hover{
     color: white;
-    background-color:#505050; 
+    background-color:black; 
   }
   
   .profile-dropdown{

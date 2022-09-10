@@ -104,7 +104,7 @@ const linkerN = () => {
     return (
       <div className='create_spot'>
         <button 
-        
+        className='spot_button'
         type="submit"
         onClick = {(e) => 
             {

@@ -51,10 +51,15 @@ input {
     text-align: center;
     font-weight: 300;
     font-size: 22px;
+    
 }
 .boxer{
     padding: 20px;
     border: 1px solid grey;
-    box-shadow: 10px 10px 5px grey;
+    box-shadow: 10px 10px 5px black;
     background-color: white;
+}
+.spot_button{
+    box-shadow:5px 5px 2.5px black;
+    cursor: pointer;
 }

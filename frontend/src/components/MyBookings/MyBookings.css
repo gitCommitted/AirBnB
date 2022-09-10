@@ -51,10 +51,11 @@ ul{
     text-align: center;
     font-weight: 300;
     font-size: 22px;
+    padding-top: 15px;
 }
 .box{
     padding: 20px;
     border: 1px solid grey;
-    box-shadow: 10px 10px 5px grey;
+    box-shadow: 10px 10px 5px black;
     background-color: white;
 }

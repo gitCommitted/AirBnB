@@ -36,14 +36,19 @@ body{
     flex-direction: column;
     align-items: center;
     border: 1pt solid grey;
-    box-shadow: 10px 10px 5px grey;
+    box-shadow: 10px 10px 5px black;
     color: #505050;
     text-decoration: none;
 }
 body {
-	background: linear-gradient(45deg,#D8D8D8 ,#E0E0E0, #F5F5F5, white );
+	/* background: linear-gradient(20deg,rgb(108, 108, 239),#D8D8D8 , #F5F5F5  ); */
 	/* background-size: 400% 400%; */
-	height: 100vh;
+	/* height: 100vh; */
+    background-image: url("../HomePage/original.jpeg");
+    background-size: cover;
+}
+button{
+    cursor: pointer;
 }
 
 
