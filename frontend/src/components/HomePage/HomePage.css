@@ -44,11 +44,17 @@ body {
 	/* background: linear-gradient(20deg,rgb(108, 108, 239),#D8D8D8 , #F5F5F5  ); */
 	/* background-size: 400% 400%; */
 	/* height: 100vh; */
-    background-image: url("../HomePage/original.jpeg");
-    background-size: cover;
+    /* background-image: url("../HomePage/original.jpeg");
+    background-size:cover; */
+    background-repeat: no-repeat;
+    /* background-color: rgb(89, 140, 241); */
 }
 button{
     cursor: pointer;
+}
+html{
+    background: url("../HomePage/original.jpeg") no-repeat center fixed;
+  background-size: cover;
 }
 
 
