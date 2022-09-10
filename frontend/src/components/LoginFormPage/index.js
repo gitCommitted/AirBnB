@@ -60,7 +60,7 @@ function LoginFormPage() {
       setEmail('demo@user.io')
       setPassword('password')
       }
-      }>AA instructor? Click here to login as a demo user</button>
+      }>Click here to login as a demo user</button>
       <NavLink to="/signup">No account? Click here to sign up</NavLink>
     </form>
   );
