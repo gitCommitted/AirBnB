@@ -10,15 +10,15 @@
   
   .nav__buttons{
     display: inline-flex;
-    border-radius: 3px;
+    
     border: 0;
     cursor: pointer;
     text-decoration: none;
     align-items: right;
     text-align: center;
-    background-color: hsla(0,0%,100%,.3);
+    /* background-color: hsla(0,0%,100%,.3); */
     box-shadow: none;
-    color: black;
+    color: #505050;
     line-height: 32px;
     margin: 0 0 0 0;
     transition: .1s ease;
@@ -26,14 +26,18 @@
     padding: 20px 40px 20px 40px;
     height: 30px;
     font-size: 20px;
+    
   }
   .nav__buttons:hover{
     color: white;
-    background-color: rgb(50, 53, 53);
+    background-color:#505050; 
   }
   
   .profile-dropdown{
-      display: inline-block
+      display: inline-block;
+      padding-top: 15px;
+      padding-bottom: 5px;
+      
   }
 
   .logo {
@@ -41,13 +45,18 @@
     display: inline block;
     text-align: left;
     left: 5%;
-    font-size: 20pt;
+    font-size: 25pt;
     position: absolute;
-    top: 5px;
+    top:15px;
     font-weight: bolder;
+    color:black ;
   }
-  
- 
+  p {
+    margin: 0
+  }
+ ul{
+   margin: 0 0 0 0
+ }
   
   body{
     font-family: 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;

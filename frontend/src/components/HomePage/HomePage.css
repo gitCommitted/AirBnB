@@ -7,10 +7,12 @@ body{
       list-style-type: none;
       padding-inline-start: 0pt;
   }
+
   .title_home{
       text-align: center;
       font-weight: 300;
       font-size: 22px;
+      color: #505050;
   }
   .theGrid{
     list-style-type: none;
@@ -27,6 +29,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: white;
 }
 .card2{
     display: flex;
@@ -34,5 +37,15 @@ body{
     align-items: center;
     border: 1pt solid grey;
     box-shadow: 10px 10px 5px grey;
+    color: #505050;
+    text-decoration: none;
 }
+body {
+	background: linear-gradient(45deg,#D8D8D8 ,#E0E0E0, #F5F5F5, white );
+	/* background-size: 400% 400%; */
+	height: 100vh;
+}
+
+
+
   
