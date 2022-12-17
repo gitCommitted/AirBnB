@@ -25,11 +25,11 @@
     white-space: nowrap;
     padding: 20px 40px 20px 40px;
     height: 30px;
-    font-size: 20px;
+    font-size: 15px;
     
   }
   .nav__buttons:hover{
-    color: rgb(89, 140, 241);
+    color: white;
     background-color:black; 
     
   }
