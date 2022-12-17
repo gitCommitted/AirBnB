@@ -29,7 +29,7 @@ function Navigation({ isLoaded }){
   return (
     <ul className='nav__group'>
       <li>
-        <p className='logo'>NOT AirBnB</p>
+        <p className='logo'>not airbnb</p>
         <NavLink exact to="/" className='nav__buttons'>Home</NavLink>
         {isLoaded && sessionLinks}
       </li>
