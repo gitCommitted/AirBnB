@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
      static async makeSpot({ 
-ownerId, address, city, state, country, lat, lng, name, description, price }) 
+ownerId, address, city, state, country, lat, lng, name, description, price, previewImage }) 
     {
       const newSpot = await Spot.create({
         ownerId,
@@ -23,7 +23,8 @@ ownerId, address, city, state, country, lat, lng, name, description, price })
         lng,
         name,
         description,
-        price
+        price,
+        previewImage
       });
       return await Spot.findByPk(newSpot.id);
     }

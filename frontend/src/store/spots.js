@@ -16,7 +16,7 @@ const loadTypes = (types) => ({
 
 const addOneSpot = (spot) => ({
 	type: ADD_ONE,
-	spot,
+	payload: spot,
 });
 
 export const getSpots = () => async (dispatch) => {
@@ -37,15 +37,30 @@ export const getSpotDetail = (id) => async (dispatch) => {
 	}
 };
 export const createSpot = (payload) => async (dispatch) => {
+	const { address, city, state, country, lat, lng, name, description, price, previewImage } = payload;
+	const formData = new FormData();
+
+    formData.append('address', address);
+    formData.append('city', city);
+    formData.append('state', state);
+    formData.append('country', country);
+    formData.append('lat', lat);
+    formData.append('lng', lng);
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('previewImage', previewImage)
+    console.log('dis da form data son: ',formData)
 	let response = await csrfFetch(`/api/spots`, {
 		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify(payload)
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+		body: formData
 	});
 	console.log('making api request: ',payload)
 	if (response.ok) {
+		console.log('making api request: ',payload)
 		const newGuy = await response.json();
 		dispatch(addOneSpot(newGuy));
 		return newGuy

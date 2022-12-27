@@ -29,6 +29,7 @@ const MySpots = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+    const [previewImage, setImage] = useState('');
     const [errors, setErrors] = useState([]);
     useEffect(() => {
         dispatch(getSpots());
@@ -117,6 +118,7 @@ const linkerN = () => {
                 setName('');
                 setDescription('');
                 setPrice('');
+                setImage('');
                 setErrors([]);
                 //newForm === 'true' ? setNewForm('false') : setNewForm('true')
                
@@ -155,7 +157,8 @@ const handleSubmit = (e) => {
 const handleSubmitN = (e) => {
     e.preventDefault();
     setErrors([]);
-    return  dispatch(createSpot({ address,city,state,country,lat,lng,name,description,price }))
+
+    return   dispatch(createSpot( {address,city,state,country,lat,lng,name,description,price,previewImage} ))
     .then(() => setShowModalN(false))
     .catch(async (res) => {
         const data = await res.json();
@@ -357,6 +360,14 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
+      <div className='image-title'>Add Image (optional)</div>
+      <input
+          className='modal-input-title file-btn'
+          id='imageButton'
+          type='file'
+          accept='image/*'
+          onChange={(e) => setImage(e.target.files[0])}
+        />
       <button type="submit">Create This Spot</button>
       {/* <button 
       onClick = {(e) => setNewForm('false')}

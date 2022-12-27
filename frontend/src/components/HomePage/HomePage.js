@@ -31,10 +31,16 @@ function Home(){
       <ul className='theGrid'>
         {spots.map((spot)=>(
      <li className='card'>
+     
    <NavLink className='card2' key={spot.id} to={`/spots/${spot.id}`}>
      {spot.name}
-     <img src={placeholder} alt="placeholder image"/>
+     
+     
+ 
+     <img src={spot.previewImage ? spot.previewImage : placeholder} alt="no image available"/>
+     
      </NavLink> </li>))}
+  
    </ul>
       </>
     );

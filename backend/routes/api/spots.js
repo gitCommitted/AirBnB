@@ -5,6 +5,8 @@ const { setTokenCookie, requireAuth, restoreUser, isOwner, isntOwner } = require
 const { User,Spot,Image,Review,Booking } = require('../../db/models');
 const { check, checkSchema, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { singlePublicFileUpload, singleMulterUpload } = require('../../awsS3');
+
 
 const router = express.Router();
 
@@ -215,18 +217,22 @@ const validateSpot = [
 //part 2 route handler 
 router.post(
   '/',
+  singleMulterUpload("previewImage"),
   requireAuth,
   validateSpot,
+  
   async (req, res) => {
   const ownerId = req.user.id
   const { address, city, state, country, lat, lng, name, description, price } = req.body;
+  console.log('rec,res:',req,req.body);
+  const previewImage = await singlePublicFileUpload(req.file);
+  console.log('rec,res:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',req.file, previewImage);
   const newSpot = await Spot.makeSpot({ 
-ownerId, address, city, state, country, lat, lng, name, description, price });
+ownerId, address, city, state, country, lat, lng, name, description, price, previewImage });
  const retObj = await Spot.findOne({
    where: {
      id: newSpot.id
-   },
-   attributes: {exclude: ['previewImage']}
+   }
  })
     res.statusCode=201
     return res.json(retObj);
