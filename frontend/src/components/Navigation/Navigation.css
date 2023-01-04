@@ -42,15 +42,15 @@
   }
 
   .logo {
-    opacity: 0.8;
+    
     display: inline block;
     text-align: left;
-    left: 5%;
-    font-size: 25pt;
+    left: 9%;
+    font-size: 20pt;
     position: absolute;
-    top:15px;
+    top:18px;
     font-weight: bolder;
-    color:black ;
+    color:#FF5A5F ;
   }
   p {
     margin: 0
@@ -63,6 +63,18 @@
     font-family: 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-size: 18px;
     margin: 0px;
+  }
+  .logo1 {
+   
+    display: inline block;
+    text-align: left;
+
+    left: 5%;
+
+    position: absolute;
+    top:8px;
+    font-weight: bolder;
+    color:black ;
   }
 
  
