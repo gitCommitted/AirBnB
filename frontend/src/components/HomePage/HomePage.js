@@ -33,12 +33,12 @@ function Home(){
      <li className='card'>
      
    <NavLink className='card2' key={spot.id} to={`/spots/${spot.id}`}>
-     {spot.name}
+     
      
      
  
      <img src={spot.previewImage ? spot.previewImage : placeholder} alt="no image available"/>
-     
+     {spot.name}
      </NavLink> </li>))}
   
    </ul>
