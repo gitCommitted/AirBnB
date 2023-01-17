@@ -67,7 +67,7 @@ export const createSpot = (payload) => async (dispatch) => {
 		return newGuy
 	}
 	else {
-        const errors = await res.json();
+        const errors = await response.json();
         console.log(errors);
         return errors;
     }
