@@ -106,7 +106,7 @@ module.exports = {
         name: 'Testspot8',
         description: 'A great place to stay and test',
         price: '199.50',
-        previewImage: 'https://itweetbucket.s3.amazonaws.com/1673895746104.jpg'
+        previewImage: 'https://itweetbucket.s3.amazonaws.com/1673916263776.jpg'
       },
       {
         ownerId: '2',
@@ -119,7 +119,7 @@ module.exports = {
         name: 'Testspot9',
         description: 'A great place to stay and test',
         price: '199.50',
-        previewImage: 'https://itweetbucket.s3.amazonaws.com/1673896248392.jpgl'
+        previewImage: 'https://itweetbucket.s3.amazonaws.com/1673896248392.jpg'
       },
       {
         ownerId: '2',

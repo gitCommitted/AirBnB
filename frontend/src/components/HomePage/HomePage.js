@@ -60,7 +60,7 @@ function Home(){
      
    <NavLink className='card2' key={spot.id} to={`/login`}>
      {spot.name}
-     <img src={placeholder} alt="placeholder image"/>
+     <img src={spot.previewImage ? spot.previewImage : placeholder} alt="no image available"/>
      </NavLink>
    </li>))}
    </ul>
