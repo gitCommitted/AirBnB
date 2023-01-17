@@ -32,7 +32,7 @@ ul{
     padding-right: 50px;
     padding-left: 50px;
     justify-items: center;
-    grid-row-gap: 10%;
+    /* grid-row-gap: 10%; */
 }
 .card{
     display: flex;
@@ -55,7 +55,7 @@ ul{
 }
 .box{
     padding: 20px;
-    border: 1px solid grey;
+    /* border: 1px solid grey;
     box-shadow: 10px 10px 5px black;
-    background-color: white;
+    background-color: white; */
 }

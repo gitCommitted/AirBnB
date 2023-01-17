@@ -36,9 +36,14 @@ function Home(){
      
      
      
- 
+ <li>
      <img src={spot.previewImage ? spot.previewImage : placeholder} alt="no image available"/>
-     {spot.name}
+      </li>
+     <li>{spot.name}</li>
+      <li>{spot.city}, {spot.state}</li>
+      <li>${spot.price}</li>
+     
+     
      </NavLink> </li>))}
   
    </ul>

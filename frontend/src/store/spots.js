@@ -16,7 +16,7 @@ const loadTypes = (types) => ({
 
 const addOneSpot = (spot) => ({
 	type: ADD_ONE,
-	payload: spot,
+	spot,
 });
 
 export const getSpots = () => async (dispatch) => {
@@ -62,9 +62,16 @@ export const createSpot = (payload) => async (dispatch) => {
 	if (response.ok) {
 		console.log('making api request: ',payload)
 		const newGuy = await response.json();
+		console.log('response from api request: ',newGuy)
 		dispatch(addOneSpot(newGuy));
 		return newGuy
 	}
+	else {
+        const errors = await res.json();
+        console.log(errors);
+        return errors;
+    }
+   
 };
 
 export const editSpot = (payload) => async (dispatch) => {
@@ -123,6 +130,8 @@ const spotsReducer = (state = initialState, action) => {
 			 		...action.spot,
 			 	}}
 			}
+			console.log('state.Spots: ',state.Spots)
+			console.log('action.spot: ',action.spot)
             state.Spots.forEach((el,ind)=>{
                 if (el.id==action.spot.id){
                     exists=true

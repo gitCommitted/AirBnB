@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBookings, editBooking, removeBooking } from '../../store/bookings';
 import { Modal } from '../../context/Modal';
+import placeholdr from "../HomePage/placeholdr.png"
 const MyBookings = () => {
     const dispatch= useDispatch();
     const bookings = useSelector(state => state.bookings.Bookings);
@@ -107,6 +108,7 @@ deets = (
     <div  className='theGrid'>
     {bookings.map((booking)=>(
     <ul className='box'>
+       <img src={booking.Spot.previewImage ? booking.Spot.previewImage : placeholdr} alt="no image available"/> 
      <li>Place: {booking.Spot.name}</li>
      <li>Start Date: {booking.startDate}</li>
      <li>End Date: {booking.endDate}</li>

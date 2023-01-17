@@ -23,7 +23,7 @@ body{
     padding-right: auto;
     padding-left: auto;
     justify-items: center;
-    grid-row-gap: 10%;
+    grid-row-gap: 5%;
 }
 .card{
     display: flex;

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpots, editSpot, removeSpot, createSpot } from '../../store/spots';
 import { Modal } from '../../context/Modal';
+import placeholdr from '../HomePage/placeholdr.png';
 const MySpots = () => {
     const dispatch= useDispatch();
     const spots1 = useSelector(state => state.spots.Spots);
@@ -156,15 +157,19 @@ const handleSubmit = (e) => {
 }
 const handleSubmitN = (e) => {
     e.preventDefault();
-    setErrors([]);
+    // setErrors([]);
 
-    return   dispatch(createSpot( {address,city,state,country,lat,lng,name,description,price,previewImage} ))
-    .then(() => setShowModalN(false))
+    const createdSpot =  dispatch(createSpot( {address,city,state,country,lat,lng,name,description,price,previewImage} ))
+    .then((res) => {
+      console.log(".then1: ",res)
+      setShowModalN(false)
+    })
     .catch(async (res) => {
-        const data = await res.json();
-        console.log(data)
+        const data = res;
+        console.log(".catch err: ",data)
         if (data && data.errors) setErrors(Object.values(data.errors));
       });
+    return createdSpot
 }
 const showEditForm = (newSpotId) => {
     spotId=newSpotId
@@ -381,12 +386,13 @@ if (spots && spots.length){
 deets = (
 <>
     <div className='create_spot'>You're Spot Details:</div>
-    <div  className='theGridMySpots'>
+    <div  className='theGrid' id="grid2">
     
     {spots.map((spot)=>(
         
         
           <ul className='boxer'>
+         <img src={spot.previewImage ? spot.previewImage : placeholdr} alt="no image available"/>   
      <li>Name: {spot.name}</li>
      <li>Description: {spot.description}</li>
      <li>Price: {spot.price}</li>

@@ -92,7 +92,7 @@ if (spot.Spots){
     <>
         <ul>
         <li>
-        <img src={placeholder} alt="placeholder image"/>
+        <img src={thisSpot.previewImage ? thisSpot.previewImage : placeholder} alt="no image available"/>
         </li>
         <li>
         Name: {thisSpot.name}
