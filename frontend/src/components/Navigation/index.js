@@ -30,10 +30,10 @@ function Navigation({ isLoaded }){
   return (
     <ul className='nav__group'>
       <li>
-      
-        <p className='logo'>not airbnb</p>
+      <div id="logoGroup">
+        <p className='logo'>Not AirBnB</p>
         <img className='logo1' src={logo}  alt="no image available"/>
-        
+        </div>
         <NavLink exact to="/" className='nav__buttons'>Home</NavLink>
         {isLoaded && sessionLinks}
       </li>

@@ -45,7 +45,7 @@
     
     display: inline block;
     text-align: left;
-    left: 9%;
+    left: 160px;
     font-size: 20pt;
     position: absolute;
     top:18px;
@@ -69,12 +69,23 @@
     display: inline block;
     text-align: left;
 
-    left: 5%;
+    left: 100px;
 
     position: absolute;
     top:8px;
     font-weight: bolder;
     color:black ;
+  }
+
+  @media (max-width: 920px) {
+    .logo{
+        display: none;
+    }
+  }
+  @media (max-width: 750px) {
+    .logo1{
+        display: none;
+    }
   }
 
  

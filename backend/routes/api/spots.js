@@ -225,10 +225,18 @@ router.post(
   const ownerId = req.user.id
   const { address, city, state, country, lat, lng, name, description, price } = req.body;
   // console.log('rec,res:',req,req.body);
+  let newSpot
+  if (req.file) {
+   
   const previewImage = await singlePublicFileUpload(req.file);
   console.log('rec,res:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',previewImage);
-  const newSpot = await Spot.makeSpot({ 
+  newSpot = await Spot.makeSpot({ 
   ownerId, address, city, state, country, lat, lng, name, description, price, previewImage });
+  }
+  else{
+    newSpot = await Spot.makeSpot({
+    ownerId, address, city, state, country, lat, lng, name, description, price });
+  }
   const retObj = await Spot.findOne({
    where: {
      id: newSpot.id
