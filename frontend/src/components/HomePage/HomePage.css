@@ -66,5 +66,23 @@ img {
     width: 60px;
     height: 60px;
 }
-
-  
+@media (max-width: 1735px) {
+    .theGrid{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+  @media (max-width: 1400px) {
+    .theGrid{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+    @media (max-width: 1050px) {
+        .theGrid{
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    @media (max-width: 750px) {
+        .theGrid{
+            grid-template-columns: 1fr;
+        }
+    }
