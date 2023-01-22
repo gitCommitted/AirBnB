@@ -170,6 +170,7 @@ router.get(
   "name": Spots.name,
   "description": Spots.description,
   "price": Spots.price,
+  "previewImage": Spots.previewImage,
   "createdAt": Spots.createdAt,
   "updatedAt": Spots.updatedAt,
   "numReviews": revs,
