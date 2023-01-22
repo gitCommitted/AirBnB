@@ -15,22 +15,22 @@ function ProfileButton({ user }) {
     <Redirect to="/" />
   );
 
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
+  // const openMenu = () => {
+  //   if (showMenu) return;
+  //   setShowMenu(true);
+  // };
   
-  useEffect(() => {
-    if (!showMenu) return;
+  // useEffect(() => {
+  //   if (!showMenu) return;
 
-    const closeMenu = () => {
-      setShowMenu(false);
-    };
+  //   const closeMenu = () => {
+  //     setShowMenu(false);
+  //   };
 
-    document.addEventListener('click', closeMenu);
+  //   document.addEventListener('click', closeMenu);
   
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
+  //   return () => document.removeEventListener("click", closeMenu);
+  // }, [showMenu]);
 
   const logout = async (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ function ProfileButton({ user }) {
     // console.log('looginp out')
     const res = await dispatch(sessionActions.logout())
  
-    .then ( (res) => {console.log("logged out2")})
+    
     .then((res)=>{history.go('/')})
     return res
   };
