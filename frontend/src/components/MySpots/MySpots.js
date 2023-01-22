@@ -1,14 +1,21 @@
 import './MySpots.css';
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpots, editSpot, removeSpot, createSpot } from '../../store/spots';
 import { Modal } from '../../context/Modal';
 import placeholdr from '../HomePage/placeholdr.png';
 const MySpots = () => {
     const dispatch= useDispatch();
-    const spots1 = useSelector(state => state.spots.Spots);
-    const user = useSelector(state=>state.session.user.id)
+    const history = useHistory();
+    const spots1 = useSelector(state => state?.spots?.Spots);
+    const user = useSelector(state=>state?.session?.user?.id)
+  const sessionUser = useSelector(state => state.session?.user);
+  if (!sessionUser){
+    history.push("/")
+  }
+
     const [editForm, setEditForm]=useState('false')
     const [showingEditForm, setShowingEditForm]=useState('')
     const [newForm, setNewForm]=useState('false')

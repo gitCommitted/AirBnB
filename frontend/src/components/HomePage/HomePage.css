@@ -66,6 +66,24 @@ img {
     width: 60px;
     height: 60px;
 }
+#noDec {
+    text-decoration: none;
+    text-decoration-color: white;
+
+
+}
+li{
+    list-style-type: none;
+    text-decoration: none;
+}
+ul{
+    list-style-type: none;
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+    text-decoration-color: white;
+}
 @media (max-width: 1735px) {
     .theGrid{
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -86,3 +104,5 @@ img {
             grid-template-columns: 1fr;
         }
     }
+
+  

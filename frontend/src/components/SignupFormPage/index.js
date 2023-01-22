@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 
-function SignupFormPage() {
+function SignupFormPage({setShowModal}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -30,48 +30,59 @@ function SignupFormPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='modal-container'>
       <ul>
         
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
+      <label className='modal-input-title-label' htmlFor='email'>
         Email
+      </label>
         <input
+        className='modal-input-title'
+        name='email'
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-      </label>
-      <label>
+      <label className='modal-input-title-label' htmlFor='userName' >
         UserName
+      </label>
         <input
+        className='modal-input-title'
+        name='userName'
           type="text"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           required
         />
-      </label>
-      <label>
+      
+      <label className='modal-input-title-label' htmlFor='password'>
         Password
+      </label>
         <input
+        className='modal-input-title'
+        name='password'
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <label>
+      <label className='modal-input-title-label' htmlFor='confirmPassword'>
         Confirm Password
+      </label>
         <input
+        className='modal-input-title'
+        name='confirmPassword'
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Sign Up</button>
+
+      <button type="submit" className='login-btn modal-btn modal-submit-btn'
+      >Sign Up</button>
     </form>
   );
 }

@@ -1,9 +1,11 @@
 import './HomePage.css';
 import { getSpots } from '../../store/spots';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import placeholder from '../HomePage/placeholdr.png';
+import { Modal } from '../../context/Modal';
+import LoginFormPage from '../LoginFormPage';
 
 
 function Home(){
@@ -19,15 +21,27 @@ function Home(){
 
 
 
- 
+  const [showModal, setShowModal] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
-
+  const loginSpots = (spot) => {
+    return (
+      <>
+   <li>
+     <img src={spot.previewImage ? spot.previewImage : placeholder} alt="no image available"/>
+     </li>
+     <li>{spot.name}</li>
+      <li>{spot.city}, {spot.state}</li>
+      <li>${spot.price}</li>
+        </>
+    )
+     }
   let sessionLinks;
   if (sessionUser && spots) {
     sessionLinks = (
         <>
       
       <h1 className='title'> All Spots:</h1>
+
       <ul className='theGrid'>
         {spots.map((spot)=>(
      <li className='card'>
@@ -54,16 +68,22 @@ function Home(){
       <>
       
       <h1 className='title'> All Spots:</h1>
+      <Link onClick={() => setShowModal(true)}>
    <ul className='theGrid'>
       {spots.map((spot)=>(
    <li className='card'>
-     
-   <NavLink className='card2' key={spot.id} to={`/login`}>
-     {spot.name}
-     <img src={spot.previewImage ? spot.previewImage : placeholder} alt="no image available"/>
-     </NavLink>
+    <div className='card2' key={spot.id}>
+
+    
+     {loginSpots(spot)}
+     </div>
    </li>))}
    </ul>
+   </Link>
+     {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <LoginFormPage setShowModal={setShowModal} />
+        </Modal>)}
       </>
     );
   }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import './LoginForm.css';
 
-function LoginFormPage() {
+function LoginFormPage({setShowModal}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const [email, setEmail] = useState('');
@@ -30,38 +30,46 @@ function LoginFormPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='modal-container'>
       <ul>
        
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       
       </ul>
-      <label>
+      <label className='modal-input-title-label' htmlFor='email'>
         Email
+      </label>
         <input
+        className='modal-input-title'
+        name='email'
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-      </label>
-      <label>
+      
+      <label className='modal-input-title-label' htmlFor='password'>
         Password
+      </label>
         <input
+        className='modal-input-title'
+        name='password'
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Log In</button>
-      <button onClick={(e)=>
+  
+      <button type="submit" className='login-btn modal-btn modal-submit-btn'>Log In</button>
+      <div className='modalPadding'>
+      <button className='login-btn modal-btn modal-submit-btn' onClick={(e)=>
       {
       setEmail('demo@user.io')
       setPassword('password')
       }
       }>Click here to login as a demo user</button>
-      <NavLink to="/signup">No account? Click here to sign up</NavLink>
+      </div>
+     
     </form>
   );
 }

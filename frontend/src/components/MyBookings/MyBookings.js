@@ -1,12 +1,19 @@
 import './MyBookings.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getBookings, editBooking, removeBooking } from '../../store/bookings';
 import { Modal } from '../../context/Modal';
 import placeholdr from "../HomePage/placeholdr.png"
 const MyBookings = () => {
     const dispatch= useDispatch();
-    const bookings = useSelector(state => state.bookings.Bookings);
+    const history = useHistory();
+    const bookings = useSelector(state => state?.bookings?.Bookings);
+    const sessionUser = useSelector(state => state.session?.user);
+  if (!sessionUser){
+    history.push("/")
+  }
+    
     const [editForm, setEditForm]=useState('false')
     const [showingEditForm, setShowingEditForm]=useState('')
     const [startDate, setStartDate] = useState("");
