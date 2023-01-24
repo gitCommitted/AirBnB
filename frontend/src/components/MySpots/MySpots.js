@@ -181,38 +181,47 @@ const handleSubmitN = (e) => {
 const showEditForm = (newSpotId) => {
     spotId=newSpotId
     return(
-<form onSubmit={handleSubmit}>
-      <h3>Edit Spot</h3>  
+<form onSubmit={handleSubmit} className='modal-container'>
+      <h3 className='modal-title'>Edit Spot</h3>  
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
+      <label className='modal-input-title-label' htmlFor='addy'>
         Street Address
+      </label>
         <input
+          className='modal-input-title'
+          name='addy'
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
         />
-      </label>
-      <label>
+     
+      <label className='modal-input-title-label' htmlFor='city' >
         City
+      </label>
         <input
+          className='modal-input-title'
+          name='city'
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
         />
-      </label>
-      <label>
+    
+      <label className='modal-input-title-label' htmlFor='state'>
         State
+      </label>
         <input
+          className='modal-input-title'
+          name='state'
           type="text"
           value={state}
           onChange={(e) => setState(e.target.value)}
           required
         />
-      </label>
+     
       <label>
         Country
         <input

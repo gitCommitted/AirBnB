@@ -46,16 +46,23 @@ function ProfileButton({ user }) {
 
 const accounts = () => {
   return(
-    <ul className="profile-dropdown">
-    <li>Your Account:</li>
-    <li>{user.userName}</li>
-    <li>{user.email}</li>
+    <ul className="modal-container">
+      <div className="modalPadding">
+    <li className='modal-input-title-label'>Your Account:</li>
+    </div>
+    <li className="modal-input-title-label">User name: {user.userName}</li>
+    <li className="modal-input-title-label">Email: {user.email}</li>
     <li><br/></li>
    <li>
-   <a target="_blank" href="https://github.com/gitCommitted/AirBnB-Clone">About This App</a>
+   <a className='aRef' target="_blank" href="https://github.com/gitCommitted/AirBnB-Clone">About This App</a>
    </li>
     <li>
-      <button onClick={logout}>Log Out</button>
+      <div className='modalPadding'>
+        <div className='modalPadding'></div>
+      <button 
+      className="login-btn modal-btn modal-submit-btn"
+      onClick={logout}>Log Out</button>
+      </div>
     </li>
   </ul>
   )
