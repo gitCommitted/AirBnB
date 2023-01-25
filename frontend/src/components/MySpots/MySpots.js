@@ -186,43 +186,43 @@ const showEditForm = (newSpotId) => {
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label className='modal-input-title-label' htmlFor='addy'>
+      <label className='title-label' >
         Street Address
-      </label>
+     
         <input
-          className='modal-input-title'
+          
           name='addy'
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
         />
-     
-      <label className='modal-input-title-label' htmlFor='city' >
-        City
       </label>
+      <label className='title-label'  >
+        City
+     
         <input
-          className='modal-input-title'
+          
           name='city'
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
         />
-    
-      <label className='modal-input-title-label' htmlFor='state'>
+     </label>
+      <label className='title-label' >
         State
-      </label>
+      
         <input
-          className='modal-input-title'
+          
           name='state'
           type="text"
           value={state}
           onChange={(e) => setState(e.target.value)}
           required
         />
-     
-      <label>
+     </label>
+      <label className='title-label'>
         Country
         <input
           type="text"
@@ -231,7 +231,7 @@ const showEditForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Latitude
         <input
           type="text"
@@ -240,7 +240,7 @@ const showEditForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Longitude
         <input
           type="text"
@@ -249,7 +249,7 @@ const showEditForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Name
         <input
           type="text"
@@ -258,7 +258,7 @@ const showEditForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Description
         <input
           type="text"
@@ -267,7 +267,7 @@ const showEditForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Price
         <input
           type="text"
@@ -276,7 +276,10 @@ const showEditForm = (newSpotId) => {
           required
         />
       </label>
-      <button type="submit">Edit spot</button>
+      <div className='modalPadding'></div>
+      <button type="submit"
+      className='login-btn modal-btn modal-submit-btn'
+      >Edit spot</button>
       {/* <button 
       onClick = {(e) => setEditForm('false')}
       >Cancel</button> */}

@@ -101,3 +101,9 @@ input {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.modal-title {
+  color: white;
+}
+.title-label {
+  color: white;
+}
