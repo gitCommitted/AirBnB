@@ -107,3 +107,27 @@ input {
 .title-label {
   color: white;
 }
+.modal-input-title.file-btn {
+  color: white;
+  align-self: center;
+  padding-right: none;
+  width: 250px;
+}
+button {
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius:20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+    background-color: #AAB8C2;
+
+}
+button:hover{
+  background-color: #657786;
+  color: white;
+}
+#spot:hover{
+  background-color: #AAB8C2;
+  color: black;
+}

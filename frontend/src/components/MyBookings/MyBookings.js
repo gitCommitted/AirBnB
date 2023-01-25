@@ -76,30 +76,38 @@ const handleSubmit = (e) => {
 const showEditForm = (newBookingId) => {
     bookingId=newBookingId
     return(
-<form onSubmit={handleSubmit}>
-      <h3>Edit Booking</h3>
+<form onSubmit={handleSubmit} className='modal-container'>
+      <h3 className='modal-title'>Edit Booking</h3>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
+      <label className='modal-input-title-label' htmlFor='start'>
         Start Date
+        </label>
         <input
+        className='modal-input-title'
+        name='start'
           type="text"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           required
         />
-      </label>
-      <label>
+      
+      <label className='modal-input-title-label' htmlFor='end'>
         End Date
+        </label>
         <input
+        className='modal-input-title'
+        name='end'
           type="text"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Edit Booking</button>
+     
+      <button type="submit"
+      className='login-btn modal-btn modal-submit-btn'
+      >Edit Booking</button>
       {/* <button 
       onClick = {(e) => setEditForm('false')}
       >Cancel</button> */}

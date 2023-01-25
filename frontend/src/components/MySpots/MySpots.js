@@ -113,7 +113,8 @@ const linkerN = () => {
     return (
       <div className='create_spot'>
         <button 
-        className='spot_button'
+        id="spot"
+       className='login-btn modal-btn modal-submit-btn'
         type="submit"
         onClick = {(e) => 
             {
@@ -289,12 +290,12 @@ const showEditForm = (newSpotId) => {
 const showNewForm = (newSpotId) => {
     spotId=newSpotId
     return(
-<form onSubmit={handleSubmitN}>
-      <h3>Create A New Spot</h3>
+<form onSubmit={handleSubmitN} className='modal-container'>
+      <h3 className='modal-title'>Create A New Spot</h3>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
+      <label className='title-label' >
         Street Address
         <input
           type="text"
@@ -304,7 +305,8 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      
+      <label className='title-label'  >
         City
         <input
           type="text"
@@ -314,7 +316,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label' >
         State
         <input
           type="text"
@@ -324,7 +326,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Country
         <input
           type="text"
@@ -334,7 +336,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Latitude
         <input
           type="text"
@@ -344,7 +346,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Longitude
         <input
           type="text"
@@ -354,7 +356,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Name
         <input
           type="text"
@@ -364,7 +366,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Description
         <input
           type="text"
@@ -374,7 +376,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <label>
+      <label className='title-label'>
         Price
         <input
           type="text"
@@ -384,7 +386,7 @@ const showNewForm = (newSpotId) => {
           required
         />
       </label>
-      <div className='image-title'>Add Image (optional)</div>
+      <div className='title-label'>Add Image (optional)</div>
       <input
           className='modal-input-title file-btn'
           id='imageButton'
@@ -392,7 +394,9 @@ const showNewForm = (newSpotId) => {
           accept='image/*'
           onChange={(e) => setImage(e.target.files[0])}
         />
-      <button type="submit">Create This Spot</button>
+      <button type="submit"
+      className='login-btn modal-btn modal-submit-btn'
+      >Create This Spot</button>
       {/* <button 
       onClick = {(e) => setNewForm('false')}
       >Cancel</button> */}
