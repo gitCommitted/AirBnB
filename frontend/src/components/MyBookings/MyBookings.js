@@ -57,9 +57,14 @@ const linker = (booking) => {
         </>
     )
 }
-const handleDelete = (id) => {
-    console.log(id)
-    return  dispatch(removeBooking(id))
+const handleDelete = (booking) => {
+    // const now = new Date()
+    // const newEnd = new Date(booking?.endDate)
+    // const newStart = new Date(booking?.startDate)
+    // console.log(booking?.id)
+    // console.log(now, newStart)
+    // console.log(now.valueOf(), newStart.valueOf())
+    return  dispatch(removeBooking(booking?.id))
     .then(() => dispatch(getBookings()))
 }
 let bookingId
@@ -114,8 +119,21 @@ const showEditForm = (newBookingId) => {
     </form>
     )
 }
+const isPast = (booking) => {
+  
+    let now = new Date()
+    let newEnd = booking?.endDate
+    let newStart = new Date(booking?.startDate)
+    // console.log(now.valueOf(), newStart.valueOf())
+    if (now.valueOf() >= newStart.valueOf()){
+        return true
+    } else {
+        return false
+    }
+}
 
 let deets
+
 if (bookings && bookings.length){
 deets = (
 <>
@@ -126,14 +144,23 @@ deets = (
        <img src={booking.Spot.previewImage ? booking.Spot.previewImage : placeholdr} alt="no image available"/> 
      <li>Place: {booking.Spot.name}</li>
      <li>Start Date: {booking.startDate}</li>
+  
      <li>End Date: {booking.endDate}</li>
-     {linker(booking)}
+      <li>Price: ${booking.Spot.price}</li>
+      <li className='messageB'>{
+        isPast(booking) ? 'Note: You cannot modify or delete a booking after the start date' : null
+        }</li>
+     {isPast(booking) ? null : linker(booking)}
      {/* {editForm === 'true' && showingEditForm === booking.id ? showEditForm(booking.id) : linker(booking.id)} */}
-     {editForm === 'true' && showingEditForm === booking.id ? null : (
+     {editForm === 'true' 
+     && showingEditForm === booking.id 
+     || isPast(booking)
+     ? null : (
       <button 
-      onClick = {(e) => handleDelete(booking.id)}
+      onClick = {(e) => handleDelete(booking)}
       >Delete</button>
      )}
+    
      
      </ul>
      ))}
